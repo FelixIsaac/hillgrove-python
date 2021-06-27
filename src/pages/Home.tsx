@@ -11,7 +11,7 @@ const Home = () => {
     return (
         <Fragment>
             <Center>
-                <Image src="./images/landing.jpg" style={{ width: '100%', height: 'auto', borderRadius: '0 0 8px 8px' }} />
+                <Image src="./images/landing.jpg" style={{ width: '100%', height: 'auto', borderRadius: '0 0 10px 10px' }} />
             </Center>
             <Flex alignItems="center" flexFlow="column" style={{ margin: '76px 0 76px 0' }}>
                 <div>
@@ -28,12 +28,13 @@ const Home = () => {
                 </div>
                 <div style={{ marginTop: '24px', textAlign: 'center' }}>
                     <GoogleLogin
-                        clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+                        clientId="709200906463-vfrts5ve7kvaks7h5r96f269bn1q0pb1.apps.googleusercontent.com"
                         onSuccess={responseGoogle}
                         onFailure={responseGoogle}
                         render={({ onClick, disabled }) => <SignInButton onClick={onClick} disabled={disabled} />}
                         cookiePolicy={'single_host_origin'}
                         theme="dark"
+                        hostedDomain={'students.edu.sg'}
                     />
                     <Text
                         fontSize="xs"

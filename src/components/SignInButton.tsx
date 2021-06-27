@@ -10,7 +10,7 @@ const SignInButton = ({ onClick, disabled }) => {
     }
 
     return (
-        <Button colorScheme="messenger" size="lg">
+        <Button colorScheme="messenger" size="lg" onClick={onClick} disabled={disabled}>
             <img src="./images/google.svg" alt="Google Sign In" style={ImageStyle} />
             Sign in with Google
         </Button>

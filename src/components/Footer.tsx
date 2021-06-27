@@ -4,7 +4,7 @@ import { Image, Box, Text, Grid, UnorderedList, ListItem, Link, Badge } from "@c
 const Footer = () => {
     return (
         <section className="footer">
-            <Box bg="#ECD799" w="100%" p={4}>
+            <Box bg="#ECD799" w="100%" p={4} style={{ borderRadius: "10px 10px 0px 0px" }}>
                 <Grid templateColumns="repeat(3, 1fr)" gap={6}>
                     <Image src="./images/hillgrove_logo.png" width="236px" height="95px" />
                     <Box w="100%" h="10">
