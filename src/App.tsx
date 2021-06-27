@@ -1,7 +1,8 @@
 import React from "react"
-import { ChakraProvider, Grid, Box, Image } from "@chakra-ui/react"
+import { ChakraProvider } from "@chakra-ui/react"
 import { BrowserRouter as Router, Switch, Route, } from "react-router-dom";
 import theme from './theme';
+import Footer from './components/Footer';
 import Home from "./pages/Home";
 // import { ColorModeSwitcher } from "./components/ColorModeSwitcher";
 
@@ -14,11 +15,14 @@ export const App = () => (
       </Grid>
     </Box> */}
     <Router>
-      <Switch>
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
+      <main className="container">
+        <Switch>
+          <Route path="/">
+              <Home />
+          </Route>
+        </Switch>
+      </main>
     </Router>
+    <Footer />
   </ChakraProvider>
 )

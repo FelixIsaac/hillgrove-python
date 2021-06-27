@@ -11,7 +11,7 @@ const Home = () => {
     return (
         <Fragment>
             <Center>
-                <Image src="./images/landing.jpg" style={{ width: '100%', height: 'auto' }} />
+                <Image src="./images/landing.jpg" style={{ width: '100%', height: 'auto', borderRadius: '0 0 8px 8px' }} />
             </Center>
             <Flex alignItems="center" flexFlow="column" style={{ margin: '76px 0 76px 0' }}>
                 <div>
