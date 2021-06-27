@@ -2,10 +2,45 @@ import React, { Fragment, useState, useContext } from "react";
 import { Image, Center, Flex, Heading, Text, Alert, AlertIcon, AlertTitle, AlertDescription } from "@chakra-ui/react"
 import GoogleLogin, { GoogleLoginResponse } from 'react-google-login';
 import SignInButton from '../components/SignInButton';
+import { UserContext } from "../contexts/UserContext";
 
 const Home = () => {
-    const responseGoogle = (response: any) => {
-        console.log(response);
+    const user = useContext(UserContext);
+    console.log(user);
+    const [loginStatus, setLoginStatus] = useState<'error' | 'success'>('error');
+    const [loginStatusVisibility, setLoginStatusVisibility] = useState(false)
+    
+    async function loginSuccess(response: GoogleLoginResponse) {
+        setLoginStatus('success');
+        setLoginStatusVisibility(true);
+
+        const serverResponse = await fetch(`${process.env.REACT_APP_BACKEND_API}/authenticate/oauth`, {
+            method: 'POST',
+            headers: {
+                'Authorization': response.tokenId,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                googleId: response.profileObj.googleId,
+                avatar: response.profileObj.imageUrl,
+                email: response.profileObj.email,
+                name: response.profileObj.name,
+                firstName: response.profileObj.givenName,
+                familyName: response.profileObj.familyName
+            })
+        });
+
+        const newUser = await serverResponse.json()
+        user.updateUser(newUser);
+    }
+    
+    function loginFailure(response: any) {
+        if (response.error === "popup_closed_by_user") return;
+
+        console.error(response);
+        sessionStorage.setItem('lastError', (response?.message | response).toString())
+        setLoginStatus('error');
+        setLoginStatusVisibility(true)
     }
 
     return (
