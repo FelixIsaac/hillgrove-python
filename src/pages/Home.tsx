@@ -6,37 +6,32 @@ import { UserContext } from "../contexts/UserContext";
 
 const Home = () => {
     const user = useContext(UserContext);
-    console.log(user);
     const [loginStatus, setLoginStatus] = useState<'error' | 'success'>('error');
     const [loginStatusVisibility, setLoginStatusVisibility] = useState(false)
     const [loading, setLoading] = useState(false)
 
     
     async function loginSuccess(response: GoogleLoginResponse) {
-        setLoginStatus('success');
-        setLoginStatusVisibility(true);
-
-        const serverResponse = await fetch(`${process.env.REACT_APP_BACKEND_API}/authenticate/oauth`, {
+       const serverResponse = await fetch(`${process.env.REACT_APP_BACKEND_API}/authentication`, {
             method: 'POST',
             headers: {
                 'Authorization': response.tokenId,
-                'Content-Type': 'application/json'
+                'Content-Type': 'text/plain'
             },
-            body: JSON.stringify({
-                googleId: response.profileObj.googleId,
-                avatar: response.profileObj.imageUrl,
-                email: response.profileObj.email,
-                name: response.profileObj.name,
-                firstName: response.profileObj.givenName,
-                familyName: response.profileObj.familyName
-            })
+            body: response.tokenId
         });
 
-        const newUser = await serverResponse.json()
-        user.updateUser(newUser);
+        // set cookie
+        document.cookie = `token=${await serverResponse.text()};expires=${Date.now() + 1.037e+9};`;
+        user.updateUser();
+
+        setLoginStatus('success');
+        setLoginStatusVisibility(true);
+        setLoading(false)
     }
     
     function loginFailure(response: any) {
+        setLoading(false)
         if (response.error === "popup_closed_by_user") return;
 
         console.error(response);

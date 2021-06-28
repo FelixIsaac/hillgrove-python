@@ -1,19 +1,25 @@
 import React, { createContext } from 'react';
 
-export interface IUserContext {
-    updateUser(jwt: string): void
+const getToken = () => document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, "$1")
+
+function updateUser(jwt?: string) {
+        if (!jwt) jwt = getToken();
+    const newUser = parseJWT(jwt);
+
+    for (const key of Object.keys(newUser)) {
+        this[key] = newUser[key];
+    }
 }
 
-const getToken = () => document.cookie.replace(/(?:(?:^|.*;\s*)token\s*\=\s*([^;]*).*$)|^.*$/, "$1")
-
 export const initUser = {
-    "username": "",
-    "avatar": "",
-    "id": "",
-    updateUser: () => { }
+    avatar: '',
+    exp: 0,
+    firstName: '',
+    name: '',
+    updateUser
 };
 
-export const UserContext = createContext<typeof initUser & IUserContext>(initUser);
+export const UserContext = createContext(initUser);
 
 export const parseJWT = (token: string | undefined) => {
     if (!token) token = getToken();
@@ -38,15 +44,6 @@ const UserContextComponent = (props: any) => {
     if (new Date(user.iat * 1000) > new Date(Date.now() + 1.21e+9)) {
         document.cookie = "token=;";
         return props.children;
-    }
-
-    function updateUser(jwt) {
-         if (!jwt) jwt = getToken();
-        const newUser = parseJWT(jwt);
-
-        for (const key of Object.keys(newUser)) {
-            this[key] = newUser[key];
-        }
     }
 
     return (
