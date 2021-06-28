@@ -9,6 +9,8 @@ const Home = () => {
     console.log(user);
     const [loginStatus, setLoginStatus] = useState<'error' | 'success'>('error');
     const [loginStatusVisibility, setLoginStatusVisibility] = useState(false)
+    const [loading, setLoading] = useState(false)
+
     
     async function loginSuccess(response: GoogleLoginResponse) {
         setLoginStatus('success');
@@ -86,7 +88,7 @@ const Home = () => {
                         clientId="709200906463-vfrts5ve7kvaks7h5r96f269bn1q0pb1.apps.googleusercontent.com"
                         onSuccess={loginSuccess}
                         onFailure={loginFailure}
-                        render={({ onClick, disabled }) => <SignInButton onClick={onClick} disabled={disabled} />}
+                        render={({ onClick, disabled }) => <SignInButton onClick={onClick} disabled={disabled} loading={{ loading, setLoading }}/>}
                         cookiePolicy={'single_host_origin'}
                         theme="dark"
                         hostedDomain={'students.edu.sg'}
