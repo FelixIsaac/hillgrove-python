@@ -11,5 +11,5 @@ export default () => {
         'Advanced Python with Code Introspection'
     ]
 
-    return data.map((title, i) => <DashboardItem no={i + 1} title={title}/>)
+    return data.map((title, i) => <DashboardItem no={i + 1} title={title} key={i} />)
 }

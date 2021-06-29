@@ -33,30 +33,7 @@ const DashboardItem = ({ title, no, session, description }) => {
                     <Badge margin="8px" colorScheme="blue">Session {no}</Badge>
                     {title}
                 </Heading>
-                <Text textAlign={'center'} color={useColorModeValue('gray.700', 'gray.400')} px={3}>{description}</Text>
-                <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
-                    <Badge
-                        px={2}
-                        py={1}
-                        bg={useColorModeValue('gray.50', 'gray.800')}
-                        fontWeight={'400'}>
-                        #gottastartsomewhere
-                    </Badge>
-                    <Badge
-                        px={2}
-                        py={1}
-                        bg={useColorModeValue('gray.50', 'gray.800')}
-                        fontWeight={'400'}>
-                        #python
-                    </Badge>
-                    <Badge
-                        px={2}
-                        py={1}
-                        bg={useColorModeValue('gray.50', 'gray.800')}
-                        fontWeight={'400'}>
-                        #fundamentals
-                    </Badge>
-                </Stack>
+                <Text textAlign={'center'} color={useColorModeValue('gray.700', 'gray.400')} px={3}>{description || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'}</Text>
             </Box>
         </Center>
     ); 

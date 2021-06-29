@@ -29,7 +29,7 @@ const Footer = () => {
                     >
                         <Stack spacing={6}>
                             <Box>
-                                <Image src="./images/hillgrove_logo.png" maxWidth="236px" height="95px" />
+                                <Image src="/images/hillgrove_logo.png" maxWidth="236px" height="95px" />
                             </Box>
                         </Stack>
                          <Stack align={'flex-start'}>
