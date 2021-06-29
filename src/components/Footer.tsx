@@ -1,5 +1,5 @@
 import React from "react";
-import { Box,  Container, Link, SimpleGrid, Stack, Text, useColorModeValue, Image, Badge } from "@chakra-ui/react"
+import { Box,  Container, Link, SimpleGrid, Stack, Text, Image, Badge } from "@chakra-ui/react"
 import { FiExternalLink } from 'react-icons/fi';
 import { ColorModeSwitcher } from "./ColorModeSwitcher";
 

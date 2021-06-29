@@ -1,7 +1,7 @@
 import React from 'react';
 import DashboardItem from '../components/DashboardItem';
 
-export default () => {
+const Dashboard = () => {
     const data = [
         'Introduction to Python & Programming in General',
         'Flow Control & Object Oriented Programming',
@@ -13,3 +13,5 @@ export default () => {
 
     return data.map((title, i) => <DashboardItem no={i + 1} title={title} key={i} />)
 }
+
+export default Dashboard;

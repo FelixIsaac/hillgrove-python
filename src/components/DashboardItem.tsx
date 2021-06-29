@@ -7,8 +7,7 @@ import {
     Center,
     Text,
     Badge,
-    useColorModeValue,
-    Stack
+    useColorModeValue
 } from '@chakra-ui/react';
 
 const DashboardItem = ({ title, no, session, description }) => {
