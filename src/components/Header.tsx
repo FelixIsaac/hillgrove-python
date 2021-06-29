@@ -25,7 +25,7 @@ const NavLink = ({ children, to = "/" }) => {
       <Link
           px={2}
           py={1}
-          rounded={'md'}
+          rounded="md"
           _hover={{ textDecoration: 'none' }}
           to={to}
           as={RouterLink}
@@ -48,19 +48,19 @@ const Header = () => {
     if (!user.name) return null;
 
     return (
-        <Box bg={'green.500'}>
-           <Flex h={16} alignItems={'center'} justifyContent={'space-between'}  bg="green.500" px={4}>
+        <Box bg="green.500">
+           <Flex h={16} alignItems="center" justifyContent="space-between"  bg="green.500" px={4}>
                 <IconButton
-                    size={'md'}
+                    size="md"
                     icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-                    aria-label={'Open Menu'}
+                    aria-label="Open Menu"
                     display={{ md: 'none' }}
                     onClick={isOpen ? onClose : onOpen}
                     bg="green.500"
                     _hover={{ bg: 'green.500' }}
                     borderRadius="8px"
                 />
-                <HStack spacing={8} alignItems={'center'}>
+                <HStack spacing={8} alignItems="center">
                     <Box>
                         <RouterLink to="/">
                             <Text fontSize="2xl" fontWeight="bold">
@@ -69,23 +69,23 @@ const Header = () => {
                         </RouterLink>
                     </Box>
                     <HStack
-                        as={'nav'}
+                        as="nav"
                         spacing={4}
                         display={{ base: 'none', md: 'flex' }}
                     >
                         <Links/>
                     </HStack>
                 </HStack>
-                <Flex alignItems={'center'}>
+                <Flex alignItems="center">
                     <Menu>
                         <MenuButton
                             as={Button}
-                            rounded={'full'}
-                            variant={'link'}
-                            cursor={'pointer'}
+                            rounded="full"
+                            variant="link"
+                            cursor="pointer"
                         >
                             <Avatar
-                                size={'sm'}
+                                size="md"
                                 src={user.avatar}
                             />
                         </MenuButton>
@@ -98,13 +98,13 @@ const Header = () => {
                 </Flex>
             </Flex>
         
-            {isOpen ? (
-            <Box pb={4} display={{ md: 'none' }}>
-                <Stack as={'nav'} spacing={4}>
-                <Links/>
-                </Stack>
-            </Box>
-            ) : null}
+            {isOpen && (
+                <Box pb={4} display={{ md: 'none' }}>
+                    <Stack as="nav" spacing={4}>
+                        <Links/>
+                    </Stack>
+                </Box>
+            )}
         </Box>
     )
 };

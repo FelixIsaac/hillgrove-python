@@ -1,51 +1,62 @@
 import React from "react";
-import { Image, Box, Text, Grid, UnorderedList, ListItem, Link, Badge } from "@chakra-ui/react"
+import { Box,  Container, Link, SimpleGrid, Stack, Text, useColorModeValue, Image, Badge } from "@chakra-ui/react"
 import { FiExternalLink } from 'react-icons/fi';
 import { ColorModeSwitcher } from "./ColorModeSwitcher";
 
 const Icon = () => <FiExternalLink style={{ display: 'inline' }}/>
 
+const ListHeader = ({ children }: { children: ReactNode }) => {
+  return (
+    <Text fontWeight={'500'} fontSize={'lg'} mb={2}>
+      {children}
+    </Text>
+  );
+};
+
 const Footer = () => {
     return (
         <section className="footer">
-            <Box bg="green.50" w="100%" p={4} style={{ borderRadius: "10px 10px 0px 0px" }}>
-                <Grid templateColumns="repeat(4, 1fr)" gap={6}>
-                    <Image src="./images/hillgrove_logo.png" width="236px" height="95px" />
-                    <Box w="100%" h="10">
-                        <Text fontWeight="Bold" fontSize="18" color="black">Free resources</Text>
-                        <UnorderedList color="black">
-                            <ListItem>
-                                <Link color="blue.600" href="https://freecodecamp.org" isExternal>freeCodeCamp <Icon /></Link>
-                            </ListItem>
-                            <ListItem>
-                                <Link color="blue.600" href="https://introtopython.org" isExternal>Intro to Python <Icon /></Link>
-                            </ListItem>
-                            <ListItem>
-                                <Link color="blue.600" href="https://kaggle.com" isExternal>Kaggle <Icon /></Link>
-                            </ListItem>
-                        </UnorderedList>
-                    </Box>
-                    <Box w="100%" h="10">
-                        <Text fontWeight="Bold" fontSize="18" color="black">Support channels</Text>
-                        <UnorderedList color="black">
-                            <ListItem>
-                                <Link color="blue.600" href="" isExternal>
-                                    WhatsApp  <Icon />
-                                    {" "}<Badge colorScheme="red" variant="outline">unavailable</Badge>
+            <Box
+                bg="green.200" w="100%"
+                p={4}
+                style={{ borderRadius: "10px 10px 0px 0px" }}
+                color="black"
+            >
+                <Container as={Stack} maxW={'6xl'} py={10}>
+                    <SimpleGrid
+                        templateColumns={{ sm: '2fr 2fr', md: '4fr 2fr 2fr 2fr' }}
+                        spacing={8}
+                    >
+                        <Stack spacing={6}>
+                            <Box>
+                                <Image src="./images/hillgrove_logo.png" maxWidth="236px" height="95px" />
+                            </Box>
+                        </Stack>
+                         <Stack align={'flex-start'}>
+                        <ListHeader>Free resources</ListHeader>
+                            <Link color="blue.600" href="https://freecodecamp.org" isExternal>freeCodeCamp <Icon /></Link>
+                            <Link color="blue.600" href="https://introtopython.org" isExternal>Intro to Python <Icon /></Link>
+                            <Link color="blue.600" href="https://kaggle.com" isExternal>Kaggle <Icon /></Link>
+                        </Stack>
+                        <Stack align={'flex-start'}>
+                            <ListHeader>Support channels</ListHeader>
+                            <Link color="blue.600" href="" isExternal>
+                                WhatsApp  <Icon />
+                                {" "}<Badge colorScheme="red" variant="outline">unavailable</Badge>
                                 </Link>
-                            </ListItem>
-                            <ListItem>
-                                <Link color="blue.600" href="" isExternal>
-                                    Telegram  <Icon />
-                                    {" "}<Badge colorScheme="red" variant="outline">unavailable</Badge>
-                                </Link>
-                            </ListItem>
-                        </UnorderedList>
-                    </Box>
-                    <Box w="100%" h="10" fontWeight="Bold" fontSize="18" color="black">
-                        Dark mode toggle: <ColorModeSwitcher justifySelf="flex-end" />
-                    </Box>
-                </Grid>
+                            <Link color="blue.600" href="" isExternal>
+                                Telegram  <Icon />
+                                {" "}<Badge colorScheme="red" variant="outline">unavailable</Badge>
+                            </Link>
+                        </Stack>
+                        <Stack align={'flex-start'}>
+                            <ListHeader>Others</ListHeader>
+                            <Text>
+                                Dark mode: <ColorModeSwitcher justifySelf="flex-end" />
+                            </Text>
+                        </Stack>
+                    </SimpleGrid>
+                </Container>
             </Box>
         </section>
     )
