@@ -10,3 +10,16 @@ section.footer {
   width: 100%;
   height: 2.5rem;
 }
+
+article p.chakra-text {
+  margin: 32px 5px;
+}
+
+article ul {
+  margin-top: 4px;
+}
+
+article ul li {
+  margin-left: 38px;
+  margin-top: 8px;
+}
