@@ -66,8 +66,8 @@ const SegmentManager = () => {
                     <li><strong>Strongly typed:</strong> It won’t let unsafe operations on incompatible types go unnoticed.</li>
                 </ul>
             </Text> */}
-            <Text>
-                Now that I've convinced you to learn Python, here are some of its uses,
+            <div>
+                <Text>Now that I've convinced you to learn Python, here are some of its uses,</Text>
                 <ul>
                     <li>
                         Building desktop and mobile applications with a graphical user interface (GUI)
@@ -85,7 +85,7 @@ const SegmentManager = () => {
                     <li>Automating your life, or solve daily life problems with Python</li>
                     <li>Artificial intelligence, machine learning, and deep learning</li>
                 </ul>
-            </Text>
+            </div>
             <Text>
                 There’s a lot more to learn about Python. But by now, you should have a better idea of why Python is so popular
                 and why you should consider learning to program with it. So let's start with learning the syntax of Python. The
