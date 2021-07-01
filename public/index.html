@@ -3,8 +3,10 @@
 
 <head>
   <meta charset="utf-8" />
-  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" async/>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter" async>
+  <link rel="icon" src="%PUBLIC_URL%/favicon.ico" async/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter" media="print" onload="this.media='all'">
+
+  <link rel="author" href="https://felixisaac.dev" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
   
@@ -17,6 +19,7 @@
   <link rel="preload" as="image" href="%PUBLIC_URL%/images/google.svg" />
   <link rel="preload" as="image" href="%PUBLIC_URL%/images/hillgrove_logo.png" />
   <link rel="preload" as="image" href="%PUBLIC_URL%/images/landing.jpg" />
+  <link rel="preload" href="https://fonts.googleapis.com/css?family=Inter" as="style">
   
   <style>
   @font-face {
