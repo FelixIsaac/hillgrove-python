@@ -8,27 +8,57 @@ const Home = () => {
     const user = useContext(UserContext);
     const [loginStatus, setLoginStatus] = useState<'error' | 'success'>('error');
     const [loginStatusVisibility, setLoginStatusVisibility] = useState(false)
+    const [loginMessage, setLoginMessage] = useState('');
+    const [loginDescription, setLoginDescription] = useState('');
     const [loading, setLoading] = useState(false)
 
     
     async function loginSuccess(response: GoogleLoginResponse) {
-       const serverResponse = await fetch(`${process.env.REACT_APP_BACKEND_API}/authentication`, {
-            method: 'POST',
-            headers: {
-                'Authorization': response.tokenId,
-                'Content-Type': 'text/plain'
-            },
-            body: response.tokenId
-        });
+        try {
+            const serverResponse = await fetch(`${process.env.REACT_APP_BACKEND_API}/authentication`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': response.tokenId,
+                    'Content-Type': 'text/plain'
+                },
+                body: response.tokenId
+            });
 
-        setLoginStatus('success');
-        setLoginStatusVisibility(true);
-        setLoading(false)
+            if (!serverResponse.ok) {
+                if (serverResponse.status === 400) return handleError(serverResponse);
+                else throw serverResponse;
+            }
 
-        // set cookie
-        document.cookie = `token=${await serverResponse.text()};expires=${Date.now() + 1.037e+9};`;
-        document.location.href = '/';
-        user.updateUser();
+            setLoginStatus('success');
+            setLoginMessage('Successfully logged, happy coding! :)');
+            setLoginDescription('Redirecting to course dashboard, please wait...')
+
+            // set cookie
+            document.cookie = `token=${await serverResponse.text()};expires=${Date.now() + 1.037e+9};`;
+            document.location.href = '/';
+            user.updateUser();
+        } catch (err) {
+            setLoginStatus('error');
+            setLoginMessage('Encountered error while logging in :(')
+            setLoginDescription('Contact one of the available support channels for further assistance.');
+            setLoginStatusVisibility(true)
+
+            console.error('Error occured while requesting authentication server', err);
+            sessionStorage.setItem('lastError', err.toString())
+        } finally {
+            setLoading(false)
+            setLoginStatusVisibility(true);
+        }
+
+        function handleError(err) {
+            setLoginStatus('error');
+            setLoginStatusVisibility(true)
+            setLoginMessage('Invalid email address')
+            setLoginDescription('Please use either "students.edu.sg" or "hillgrove.edu.sg" address');
+
+            console.error('Error occured while requesting authentication server', err);
+            sessionStorage.setItem('lastError', err.toString())
+        }
     }
     
     function loginFailure(response: any) {
@@ -36,9 +66,12 @@ const Home = () => {
         if (response.error === "popup_closed_by_user") return;
 
         console.error(response);
-        sessionStorage.setItem('lastError', (response?.message | response).toString())
+        sessionStorage.setItem('lastError', (response?.message | response).toString());
+
         setLoginStatus('error');
         setLoginStatusVisibility(true)
+        setLoginMessage('Encountered error while logging in :(')
+        setLoginDescription('Contact one of the available support channels for further assistance.');
     }
 
     return (
@@ -63,20 +96,8 @@ const Home = () => {
                     {loginStatusVisibility && (
                         <Alert status={loginStatus} style={{ marginBottom: '8px' }}>
                             <AlertIcon />
-                            <AlertTitle mr={2}>
-                                {
-                                    loginStatus === 'success' ?
-                                        "Successfully logged, happy coding! :)" :
-                                        "Encountered error while logging in :("
-                                }
-                            </AlertTitle>
-                            <AlertDescription>
-                                {
-                                    loginStatus === 'success' ?
-                                        "Redirecting to course dashboard, please wait..." :
-                                        "Contact one of the available support channels for further assistance."
-                                }
-                            </AlertDescription>
+                            <AlertTitle mr={2}>{loginMessage}</AlertTitle>
+                            <AlertDescription>{loginDescription}</AlertDescription>
                         </Alert>
                     )}
 
@@ -87,14 +108,13 @@ const Home = () => {
                         render={({ onClick, disabled }) => <SignInButton onClick={onClick} disabled={disabled} loading={{ loading, setLoading }}/>}
                         cookiePolicy={'single_host_origin'}
                         theme="dark"
-                        hostedDomain={'students.edu.sg'}
                     />
                     <Text
                         fontSize="xs"
                         style={{ marginTop: '4px'}}
                         textAlign="center"
                         fontWeight="Semibold"
-                    >*Login with Google using your <u><strong>ICON Hillgrove</strong></u> account</Text>
+                    >*Login with Google using your <u><strong>school given ICON</strong></u> email account</Text>
                 </div>
             </Flex>
 
