@@ -3,7 +3,6 @@ import { UserContext } from '../contexts/UserContext';
 import {
   FormControl,
   FormLabel,
-  FormErrorMessage,
   FormHelperText,
   Input,
   Container,
@@ -13,7 +12,7 @@ import {
 
 const Feedback = () => {
     const user = useContext(UserContext);
-    const [isSubmitting, setSubmitting] = useState(false)
+    const [isSubmitting] = useState(false)
 
     // todo: get user email from server
     return (

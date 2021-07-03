@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Text, Container, Center } from '@chakra-ui/react';
+import { Text, Container } from '@chakra-ui/react';
 import { UserContext } from '../contexts/UserContext';
 import DashboardItem from '../components/DashboardItem';
 
