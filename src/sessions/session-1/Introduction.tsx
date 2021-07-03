@@ -1,13 +1,17 @@
-import React from 'react';
-import { Text, Image, Center, Alert, AlertIcon, AlertTitle, AlertDescription, Box } from '@chakra-ui/react';
+import React, { useContext } from 'react';
+import { Heading, Text, Image, Center, Alert, AlertIcon, AlertTitle, AlertDescription, Box } from '@chakra-ui/react';
+import { UserContext } from '../../contexts/UserContext';
 
 const SegmentManager = () => {
+    const user = useContext(UserContext);
+
     return (
         <Box as="article" fontSize="18px">
+            <Heading as="h2">Introduction</Heading>
             <Text>
-                In this course, I'm going to teach you everything you need to get started in Python and its core concepts.
-                The lesson has beenspecially designed with examples that you refine and enforce what you've learnt.
-                At the end of each session, we're to build a simple Python project together.
+                In this course, I will teach you everything you need to get started in Python and its core concepts. 
+                The lesson has been specially designed with examples and coding exercises that enforces what you have 
+                learned. At the end of each session, we are going to build a simple Python project together.
             </Text>
             <Text>
                 Python is one of the most popular programming languages, and every day people use it to do
@@ -35,8 +39,9 @@ const SegmentManager = () => {
                 <Image src="/images/funny-python-meme-9-write-10-lines-of-code.jpg" width="md" />
             </Center>
             <Text>
-                Well, now that you're familiar with programming in a nutshell, and why you should learn to program?
-                Out of all the programming languages readily available to learn, so why learn Python?
+                Well {user.firstName}, now that you're familiar with programming in a nutshell, and why you should learn 
+                to program. You are probably asking out of all the programming languages readily available to 
+                learn, so why learn Python?
             </Text>
             <Text>
                 Python, named after the British comedy group Monty Python, is a high-level, interpreted, interactive, and

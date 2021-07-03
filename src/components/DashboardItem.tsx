@@ -14,7 +14,7 @@ const DashboardItem = ({ title, no, session, description }) => {
     const history = useHistory();
 
     return (
-        <Center py={6} margin="30px">
+        <Center py={6}>
             <Box
                 maxW={'6xl'}
                 w={'80%'}

@@ -7,6 +7,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import SessionManager from './pages/Session'
 import Home from './pages/Home'
+import Feedback from './pages/Feedback'
 
 export const App = () => (
   <UserContextComponent>
@@ -17,10 +18,11 @@ export const App = () => (
           <Switch>
             <Route exact path="/" component={Home}/>
             <Route path="/session/:session?" component={SessionManager}/>
+            <Route path="/feedback" component={Feedback}/>
           </Switch>
         </main>
+        <Footer />
       </Router>
-      <Footer />
     </ChakraProvider>
   </UserContextComponent>
 )

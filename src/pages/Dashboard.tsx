@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Text, Container, Center } from '@chakra-ui/react';
+import { UserContext } from '../contexts/UserContext';
 import DashboardItem from '../components/DashboardItem';
 
 const Dashboard = () => {
@@ -11,7 +13,14 @@ const Dashboard = () => {
         'Advanced Python with Code Introspection'
     ]
 
-    return data.map((title, i) => <DashboardItem no={i + 1} title={title} key={i} />)
+    const user = useContext(UserContext);
+
+    return (
+        <Container maxW="container.xl" py="6">
+            <Text fontSize="3xl" marginBottom="2"><span role="img" aria-label="waving hand emoji">👋</span> Welcome, {user.firstName}</Text>
+            {data.map((title, i) => <DashboardItem no={i + 1} title={title} key={i} />)}
+        </Container>
+    )
 }
 
 export default Dashboard;

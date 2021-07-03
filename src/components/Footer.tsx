@@ -1,5 +1,6 @@
 import React from "react";
 import { Box,  Container, Link, SimpleGrid, Stack, Text, Image, Badge } from "@chakra-ui/react"
+import { Link as RouterLink } from 'react-router-dom';
 import { FiExternalLink } from 'react-icons/fi';
 import { ColorModeSwitcher } from "./ColorModeSwitcher";
 
@@ -51,6 +52,7 @@ const Footer = () => {
                         </Stack>
                         <Stack align={'flex-start'}>
                             <ListHeader>Others</ListHeader>
+                            <Link color="blue.600" to="/feedback" as={RouterLink}>Feedback</Link>
                             <Text>
                                 Dark mode: <ColorModeSwitcher justifySelf="flex-end" />
                             </Text>
