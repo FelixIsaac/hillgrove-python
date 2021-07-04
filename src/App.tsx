@@ -1,4 +1,4 @@
-import React, { Suspense } from "react"
+import React, { Suspense, memo } from "react"
 import { ChakraProvider, Spinner, Center } from "@chakra-ui/react"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import UserContextComponent from "./contexts/UserContext";
@@ -9,7 +9,7 @@ const Home = React.lazy(() => import('./pages/Home'));
 const SessionManager = React.lazy(() => import('./pages/Session'));
 const Feedback = React.lazy(() => import('./pages/Feedback'))
 
-export const App = () => (
+const App = () => (
   <UserContextComponent>
     <ChakraProvider theme={theme}>
       <Router>
@@ -28,3 +28,5 @@ export const App = () => (
     </ChakraProvider>
   </UserContextComponent>
 )
+
+export default memo(App)

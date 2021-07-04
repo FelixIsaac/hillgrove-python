@@ -1,4 +1,4 @@
-import React, { useContext, Fragment } from "react";
+import React, { useContext, Fragment, memo } from "react";
 import { Container } from '@chakra-ui/react';
 import { Route, Switch, useRouteMatch, useHistory } from 'react-router-dom';
 import { UserContext } from "../contexts/UserContext";
@@ -28,4 +28,4 @@ const SessionManager = ({ match: { params }}) => {
     )
 }
 
-export default SessionManager;
+export default memo(SessionManager);

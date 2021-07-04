@@ -1,18 +1,23 @@
-import * as React from "react"
-import ReactDOM from "react-dom"
+import React from 'react'
+import { hydrate, render } from 'react-dom'
 import reportWebVitals from "./reportWebVitals"
 import * as serviceWorker from "./serviceWorker"
 import { ColorModeScript } from "@chakra-ui/react"
-import { App } from "./App"
+import App from "./App"
 import "./assets/index.css"
 
-ReactDOM.render(
+const app = (
   <React.StrictMode>
     <ColorModeScript />
     <App />
-  </React.StrictMode>,
-  document.getElementById("root"),
-)
+  </React.StrictMode>
+);
 
-serviceWorker.unregister()
-reportWebVitals()
+const rootElement = document.getElementById('root')
+if (rootElement && rootElement!.hasChildNodes()) {
+  hydrate(app, rootElement)
+  serviceWorker.register()
+  reportWebVitals()
+} else {
+  render(app, rootElement)
+}

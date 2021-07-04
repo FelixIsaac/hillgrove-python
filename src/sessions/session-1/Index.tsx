@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Route, Switch, useRouteMatch, useHistory, Link } from 'react-router-dom';
 import { Button, ButtonGroup } from '@chakra-ui/react';
 import textToURL from '../../utils/textToURL';
@@ -24,7 +24,7 @@ const SegmentManager = ({ match: { params }}) => {
     if (topicNumber === -1 && params.topic) history.replace(`/session/1/${params.title}/introduction`)// topic not found
 
     return (
-        <div>
+        <>
             <Switch>
                 <Route exact path={`${path}/introduction`} component={Introduction}/>
                 <Route exact path={`${path}/interacting-with-python`} component={InteractingWithPython}/>
@@ -43,8 +43,8 @@ const SegmentManager = ({ match: { params }}) => {
                    isFullWidth
                 >Next topic</Button>
             </ButtonGroup>
-        </div>
+        </>
     )
 }
 
-export default SegmentManager;
+export default memo(SegmentManager);
