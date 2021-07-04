@@ -16,12 +16,12 @@ const SessionManager = ({ match: { params }}) => {
         <Switch>
             <Fragment>
                 <Container maxWidth="4xl" my="18">
-                    <Route path={`${path}/1/:title?/:segment?`} component={SessionOne} />
-                    {/* <Route exact path="/session/2/:title/:segment?" component={Session} />
-                    <Route exact path="/session/3/:title/:segment?" component={Session} />
-                    <Route exact path="/session/4/:title/:segment?" component={Session} />
-                    <Route exact path="/session/5/:title/:segment?" component={Session} />
-                    <Route exact path="/session/6/:title/:segment?" component={Session} /> */}
+                    <Route path={`${path}/1/:title?/:topic?`} component={SessionOne} />
+                    {/* <Route exact path="/session/2/:title/:topic?" component={Session} />
+                    <Route exact path="/session/3/:title/:topic?" component={Session} />
+                    <Route exact path="/session/4/:title/:topic?" component={Session} />
+                    <Route exact path="/session/5/:title/:topic?" component={Session} />
+                    <Route exact path="/session/6/:title/:topic?" component={Session} /> */}
                 </Container>
             </Fragment>
         </Switch>

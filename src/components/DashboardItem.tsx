@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from "framer-motion"
 import { useHistory } from 'react-router-dom';
+import textToURL from '../utils/textToURL';
 import {
     Heading,
     Box,
@@ -26,7 +27,7 @@ const DashboardItem = ({ title, no, session, description }) => {
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
                 as={motion.button}
-                onClick={() => history.push(`/session/${no}/${title.replace(/[\W_]+/g, ' ').replaceAll(' ', '-').toLowerCase()}`)}
+                onClick={() => history.push(`/session/${no}/${textToURL(title)}`)}
             >
                 <Heading fontSize={'2xl'}>
                     <Badge margin="8px" colorScheme="blue">Session {no}</Badge>
