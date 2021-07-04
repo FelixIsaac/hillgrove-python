@@ -1,7 +1,30 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Text, Container } from '@chakra-ui/react';
 import { UserContext } from '../contexts/UserContext';
+import Typist from 'react-typist';
 const DashboardItem = React.lazy(() => import('../components/DashboardItem'));
+
+const WelcomeAdverb = () => {
+    const [index, setIndex] = useState(0);
+    const hours = new Date().getHours();
+    const time = hours > 12 ? 'Afternoon' : hours > 17 ? 'Evening' : 'Good morning';
+    const words = [time, 'Hello', 'Welcome', 'Howdy', 'How are you', 'How goes it', 'Hey', 'What\'s up'];
+    const word = words[index % words.length];
+
+    const Repeat = () => {
+        return (
+            <Typist
+                onTypingDone={() => setIndex((i) => i + 1)}
+                cursor={{ show: false }}
+            >
+                <span>{word}</span>
+                <Typist.Backspace count={word.length} delay={3000} />
+            </Typist>
+        );
+    };
+
+    return <Repeat />;
+}
 
 const Dashboard = () => {
     const data = [
@@ -25,7 +48,15 @@ const Dashboard = () => {
 
     return (
         <Container maxW="container.xl" py="6">
-            <Text fontSize="3xl" marginBottom="2"><span role="img" aria-label="waving hand emoji">👋</span> Welcome, {user.firstName}</Text>
+            <Text
+                fontSize="5xl"
+                textAlign="center"
+                marginBottom="2"
+            >
+                <span role="img" aria-label="waving hand emoji">👋</span>
+                <WelcomeAdverb/>, {user.firstName}
+            </Text>
+            
             {data.map((title, i) => <DashboardItem session={i + 1} title={title} key={i} description={description.join('')} />)}
         </Container>
     )
