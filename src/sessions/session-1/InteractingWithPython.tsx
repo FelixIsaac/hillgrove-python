@@ -1,8 +1,25 @@
 import React, { useContext } from 'react';
 import { Link as BrowserLink } from 'react-router-dom';
-import { Heading, Text, Image, Center, Alert, AlertIcon, AlertTitle, AlertDescription, Box, Button, Link } from '@chakra-ui/react';
+import { FiExternalLink } from 'react-icons/fi';
 import CodeSnippet from '../../components/CodeSnippet';
 import { UserContext } from '../../contexts/UserContext';
+
+import {
+    Heading,
+    Text,
+    Image,
+    Center,
+    Alert,
+    AlertIcon,
+    AlertTitle,
+    AlertDescription,
+    Box,
+    Button,
+    Link,
+    Kbd
+} from '@chakra-ui/react';
+
+const ExternalIcon = () => <FiExternalLink style={{ display: 'inline' }}/>
 
 const SegmentManager = () => {
     const user = useContext(UserContext);
@@ -61,6 +78,35 @@ const SegmentManager = () => {
             <Text>
                 The simplest Python 3 code to display Hello, World! is:
                 <CodeSnippet code='print("Hello, World!")'/>
+            </Text>
+            <Text>
+                What this is going to do, is to print out "Hello, World!" onto the screen. This screen is called a console. So whatever you put inside the
+                quotation marks will be printed out onto the console. Type in the above code and click "Run" at the top of your screen inside your
+                REPL Integrated Development Environment.
+            </Text>
+            <Center>
+                <Image src="/images/helloworld.jpg" width="md"/>
+            </Center>
+            <Alert status="info" my="8px">
+                <AlertIcon />
+                <AlertTitle>Fun Fact Time:</AlertTitle>
+                <AlertDescription>
+                    This is a time-honored tradition dating back to the 1970s. See{" "}
+                    <Link href="https://w.wiki/JAS" color="blue" isExternal>Hello, World! <ExternalIcon/></Link>{" "}
+                    for a brief history. You seriously risk upsetting the <em>qi</em> of the universe if you do not abide by this custom
+                </AlertDescription>
+            </Alert>
+            <Text>
+                You can also have multiple print statements that make up a story, like this:
+                <CodeSnippet code={[
+                    `print("There once was a lady named Amelia, ")`,
+                    `print("she was 24 years old. ")`,
+                    `print("She really liked the name Amelia, ")`,
+                    `print("but didn't like being 24. ")`
+                ]}/>
+            </Text>
+            <Text>
+                To conclude, the <Kbd fontSize="18px">print</Kbd> statement will print whatever you put inside the quotation marks (a string) to the console.
             </Text>
         </Box>
     )

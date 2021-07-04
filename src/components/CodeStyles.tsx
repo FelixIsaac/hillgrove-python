@@ -29,6 +29,18 @@ export const LineNo = styled.span`
   opacity: 0.5;
 `;
 
-export const LineContent = styled.span`
+type LineContentProps = {
+  preventCopy: boolean;
+}
+
+export const LineContent = styled.span<LineContentProps>`
   display: table-cell;
+  ${props => props.preventCopy && `
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+  `}
 `;

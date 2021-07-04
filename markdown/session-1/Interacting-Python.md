@@ -45,7 +45,7 @@ This is a time-honored tradition dating back to the 1970s. See [Hello, World!](h
 
 ---
 
-You can also have multiple print statements that makes up a story, like this:
+You can also have multiple print statements that make up a story, like this:
 
 ```py
 print("There once was a lady named Amelia, ")

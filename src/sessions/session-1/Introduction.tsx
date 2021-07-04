@@ -78,7 +78,7 @@ const SegmentManager = () => {
                         Building desktop and mobile applications with a graphical user interface (GUI)
                         <Alert status="info" my="8px">
                             <AlertIcon />
-                            <AlertTitle>Fun fact:</AlertTitle>
+                            <AlertTitle>Fun Fact Time:</AlertTitle>
                             <AlertDescription>It's pronounced like "gui" in "Penguin"</AlertDescription>
                         </Alert>
                     </li>
