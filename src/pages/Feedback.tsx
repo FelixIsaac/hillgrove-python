@@ -13,6 +13,8 @@ import {
 const Feedback = () => {
     const user = useContext(UserContext);
     const [isSubmitting] = useState(false)
+    
+    if (!user.name || !user.email) return window.location.href = '/login';
 
     // todo: get user email from server
     return (

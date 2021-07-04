@@ -25,7 +25,7 @@ const Home = () => {
             });
 
             if (!serverResponse.ok) {
-                if (serverResponse.status === 400) return handleError(serverResponse);
+                if (serverResponse.status === 401) return handleError(serverResponse);
                 else throw serverResponse;
             }
 
