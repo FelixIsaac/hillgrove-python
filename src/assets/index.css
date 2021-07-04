@@ -15,11 +15,13 @@ article p.chakra-text {
   margin: 32px 5px;
 }
 
-article ul {
+article ul,
+article ol {
   margin-top: 4px;
 }
 
-article ul li {
+article ul li,
+article ol li {
   margin-left: 38px;
   margin-top: 8px;
 }

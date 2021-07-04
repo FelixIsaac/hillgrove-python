@@ -7,7 +7,7 @@ const SegmentManager = () => {
 
     return (
         <Box as="article" fontSize="18px">
-            <Heading as="h2">Introduction</Heading>
+            <Heading as="h1">Introduction</Heading>
             <Text>
                 In this course, I will teach you everything you need to get started in Python and its core concepts. 
                 The lesson has been specially designed with examples and coding exercises that enforces what you have 
