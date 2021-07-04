@@ -86,6 +86,8 @@ const Header = () => {
                         >
                             <Avatar
                                 size="md"
+                                alt="Profile avatar"
+                                aria-label="Profile"
                                 src={user.avatar}
                             />
                         </MenuButton>

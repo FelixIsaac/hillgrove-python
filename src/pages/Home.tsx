@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { UserContext } from '../contexts/UserContext';
-import Login from "./Login";
-import Dashboard from './Dashboard'
+const Login = React.lazy(() => import("./Login"));
+const Dashboard = React.lazy(() => import('./Dashboard'));
 
 
 const Index = () => {

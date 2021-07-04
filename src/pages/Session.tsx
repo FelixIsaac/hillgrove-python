@@ -2,7 +2,7 @@ import React, { useContext, Fragment } from "react";
 import { Container } from '@chakra-ui/react';
 import { Route, Switch, useRouteMatch, useHistory } from 'react-router-dom';
 import { UserContext } from "../contexts/UserContext";
-import SessionOne from '../sessions/session-1/Index';
+const SessionOne = React.lazy(() => import('../sessions/session-1/Index'));
 
 const SessionManager = ({ match: { params }}) => {
     const user = useContext(UserContext);

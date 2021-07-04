@@ -1,13 +1,13 @@
-import React from "react"
-import { ChakraProvider } from "@chakra-ui/react"
+import React, { Suspense } from "react"
+import { ChakraProvider, Spinner, Center } from "@chakra-ui/react"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import UserContextComponent from "./contexts/UserContext";
 import theme from './theme';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import SessionManager from './pages/Session'
-import Home from './pages/Home'
-import Feedback from './pages/Feedback'
+const Home = React.lazy(() => import('./pages/Home'));
+const SessionManager = React.lazy(() => import('./pages/Session'));
+const Feedback = React.lazy(() => import('./pages/Feedback'))
 
 export const App = () => (
   <UserContextComponent>
@@ -15,11 +15,13 @@ export const App = () => (
       <Router>
         <Header />
         <main className="container">
-          <Switch>
-            <Route exact path="/" component={Home}/>
-            <Route path="/session/:session?" component={SessionManager}/>
-            <Route path="/feedback" component={Feedback}/>
-          </Switch>
+          <Suspense fallback={<Center minHeight="100vh"><Spinner size="xl"/></Center>}>
+            <Switch>
+              <Route exact path="/" component={Home}/>
+              <Route path="/session/:session?" component={SessionManager}/>
+              <Route path="/feedback" component={Feedback}/>
+            </Switch>
+          </Suspense>
         </main>
         <Footer />
       </Router>

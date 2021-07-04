@@ -36,7 +36,7 @@ const SegmentManager = () => {
                 Rewind a little and see what made these big websites like Facebook, Google, YouTube and others come into being.
             </Text>
             <Center>
-                <Image src="/images/funny-python-meme-9-write-10-lines-of-code.jpg" width="md" />
+                <Image src="/images/funny-python-meme-9-write-10-lines-of-code.jpg" width="md" alt="'Eliminates jobs by writing Python' meme"/>
             </Center>
             <Text>
                 Well {user.firstName}, now that you're familiar with programming in a nutshell, and why you should learn 
@@ -104,7 +104,7 @@ const SegmentManager = () => {
                 group.
             </Text>
             <Center>
-                <Image src="/images/d9e695fa3ac795d63377001d83281fb7.jpg" width="md"/>
+                <Image src="/images/d9e695fa3ac795d63377001d83281fb7.jpg" width="md" alt="'Code doesnt work, code works. No idea why' meme"/>
             </Center>
     </Box>
     )

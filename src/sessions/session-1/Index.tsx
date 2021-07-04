@@ -2,8 +2,8 @@ import React from 'react';
 import { Route, Switch, useRouteMatch, useHistory, Link } from 'react-router-dom';
 import { Button, ButtonGroup } from '@chakra-ui/react';
 import textToURL from '../../utils/textToURL';
-import Introduction from './Introduction';
-import InteractingWithPython from './InteractingWithPython';
+const Introduction = React.lazy(() => import('./Introduction'));
+const InteractingWithPython = React.lazy(() => import('./InteractingWithPython'));
 
 const SegmentManager = ({ match: { params }}) => {
     const { path, url } = useRouteMatch();

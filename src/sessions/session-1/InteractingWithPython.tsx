@@ -28,7 +28,7 @@ const SegmentManager = () => {
         <Box as="article" fontSize="18px">
             <Heading as="h1" id="interacting-with-python">Interacting with Python</Heading>
             <Text>
-                Now that you have a basic understanding of what Python is and its uses. Let's start interacting with Python.
+                So {user.firstName}, that you have a basic understanding of what Python is and its uses. Let's start interacting with Python.
                 By the end of this section, you will know how to execute code in a script file and work within a Python
                 Integrated Development Environment (or IDE for short).
             </Text>
@@ -71,21 +71,21 @@ const SegmentManager = () => {
                 After setting up your development environment using <a href="https://replit.com/">replt</a>, we can now create our first Python program.
                 Make sure you are inside your <strong>repl</strong> we just created.
             </Text>
-                There is a long-standing custom in the computer programming field that the first code written in a newly installed language is a short program
-                that displays the string "Hello, World!" to the console.
             <Text>
+                There is a long-standing custom in the computer programming field that the first code written in a newly installed language is a short program
+                that displays the <Kbd>string</Kbd> "Hello, World!" to the <Kbd>console</Kbd>.
             </Text>
             <Text>
-                The simplest Python 3 code to display Hello, World! is:
+                <strong>Type in</strong> the following code and click "Run" at the top of your screen inside your REPL Integrated Development Environment.
+                The simplest code to display <Kbd fontSize="18px">Hello, World!</Kbd> in Python is:
                 <CodeSnippet code='print("Hello, World!")'/>
             </Text>
             <Text>
                 What this is going to do, is to print out "Hello, World!" onto the screen. This screen is called a console. So whatever you put inside the
-                quotation marks will be printed out onto the console. Type in the above code and click "Run" at the top of your screen inside your
-                REPL Integrated Development Environment.
+                quotation marks will be printed out onto the console.
             </Text>
             <Center>
-                <Image src="/images/helloworld.jpg" width="md"/>
+                <Image src="/images/helloworld.jpg" alt="Python 'Hello World' meme" width="md"/>
             </Center>
             <Alert status="info" my="8px">
                 <AlertIcon />

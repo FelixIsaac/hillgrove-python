@@ -11,14 +11,13 @@ import {
     useColorModeValue
 } from '@chakra-ui/react';
 
-interface DashboardItem {
+interface DashboardItemProps {
     title: string;
-    no: number;
-    session: string;
+    session: number;
     description: string;
 }
 
-const DashboardItem = ({ title, no, session, description }: DashboardItem) => {
+const DashboardItem = ({ title, session, description }: DashboardItemProps) => {
     const history = useHistory();
 
     return (
@@ -34,13 +33,13 @@ const DashboardItem = ({ title, no, session, description }: DashboardItem) => {
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
                 as={motion.button}
-                onClick={() => history.push(`/session/${no}/${textToURL(title)}`)}
+                onClick={() => history.push(`/session/${session}/${textToURL(title)}`)}
             >
                 <Heading fontSize={'2xl'}>
-                    <Badge margin="8px" colorScheme="blue">Session {no}</Badge>
+                    <Badge margin="8px" colorScheme="blue">Session {session}</Badge>
                     {title}
                 </Heading>
-                <Text textAlign={'center'} color={useColorModeValue('gray.700', 'gray.400')} px={3}>{description || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'}</Text>
+                <Text textAlign={'center'} color={useColorModeValue('gray.700', 'gray.400')} px={3}>{description}</Text>
             </Box>
         </Center>
     ); 

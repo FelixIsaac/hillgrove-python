@@ -16,6 +16,7 @@ export const initUser = {
     exp: 0,
     firstName: '',
     name: '',
+    email: '',
     updateUser
 };
 
