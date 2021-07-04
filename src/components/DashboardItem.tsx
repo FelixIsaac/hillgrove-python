@@ -11,7 +11,14 @@ import {
     useColorModeValue
 } from '@chakra-ui/react';
 
-const DashboardItem = ({ title, no, session, description }) => {
+interface DashboardItem {
+    title: string;
+    no: number;
+    session: string;
+    description: string;
+}
+
+const DashboardItem = ({ title, no, session, description }: DashboardItem) => {
     const history = useHistory();
 
     return (
