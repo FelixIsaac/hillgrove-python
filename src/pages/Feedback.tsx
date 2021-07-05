@@ -60,7 +60,7 @@ const Feedback = () => {
     }
     
     return (
-        <Container my="8" maxWidth="4xl">
+        <Container py="8" maxWidth="4xl">
             <form name="feedback" method="POST" data-netlify="true" onSubmit={handleSubmit}>
                 <FormControl id="email" my="6">
                     <FormLabel>Feedback</FormLabel>

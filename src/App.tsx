@@ -10,7 +10,8 @@ import ScrollToTop from "./components/ScrollToTop";
 const Home = React.lazy(() => import('./pages/Home'));
 const SessionManager = React.lazy(() => import('./pages/Session'));
 const Feedback = React.lazy(() => import('./pages/Feedback'));
-const Logout = React.lazy(() => import('./components/Logout'))
+const Support = React.lazy(() => import('./pages/Support'));
+const Logout = React.lazy(() => import('./components/Logout'));
 
 const App = () => (
   <UserContextComponent>
@@ -25,6 +26,7 @@ const App = () => (
               <Route path="/session/:session?" component={SessionManager}/>
               <Route path="/feedback" component={Feedback} />
               <Route exact path="/logout" component={Logout} />
+              <Route exact path="/support" component={Support} />
             </Switch>
           </Suspense>
         </main>

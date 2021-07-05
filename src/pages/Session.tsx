@@ -15,7 +15,7 @@ const SessionManager = ({ match: { params }}) => {
     return (
         <Switch>
             <Fragment>
-                <Container maxWidth="4xl" my="18">
+                <Container maxWidth="4xl" py="18px">
                     <Route path={`${path}/1/:title?/:topic?`} component={SessionOne} />
                     {/* <Route exact path="/session/2/:title/:topic?" component={Session} />
                     <Route exact path="/session/3/:title/:topic?" component={Session} />

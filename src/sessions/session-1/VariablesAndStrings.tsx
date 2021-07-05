@@ -18,7 +18,7 @@ const VariablesAndStrings = () => {
 
     return (
         <Box as="article" fontSize="18px">
-            <Heading as="h1" id="interacting-with-python">Interacting with Python</Heading>
+            <Heading as="h1" id="interacting-with-python">Variables and Strings</Heading>
             <Text>
                 In this section, we are going to learn about variables in Python. They are the building blocks of Python.
                 In Python, most of the time in our program, we will be working with all types of information, data, and values.

@@ -35,24 +35,22 @@ const Footer = () => {
                         </Stack>
                          <Stack align={'flex-start'}>
                         <ListHeader>Free resources</ListHeader>
-                            <Link color="blue.600" href="https://freecodecamp.org" isExternal>freeCodeCamp <Icon /></Link>
-                            <Link color="blue.600" href="https://introtopython.org" isExternal>Intro to Python <Icon /></Link>
-                            <Link color="blue.600" href="https://kaggle.com" isExternal>Kaggle <Icon /></Link>
+                            <Link color="blue" href="https://freecodecamp.org" isExternal>freeCodeCamp <Icon /></Link>
+                            <Link color="blue" href="https://introtopython.org" isExternal>Intro to Python <Icon /></Link>
+                            <Link color="blue" href="https://kaggle.com" isExternal>Kaggle <Icon /></Link>
                         </Stack>
                         <Stack align={'flex-start'}>
                             <ListHeader>Support channels</ListHeader>
-                            <Link color="blue.600" href="" isExternal>
+                            <Link color="blue" href={process.env.REACT_APP_WHATSAPP} isExternal>
                                 WhatsApp  <Icon />
-                                {" "}<Badge colorScheme="red" variant="outline">unavailable</Badge>
                                 </Link>
-                            <Link color="blue.600" href="" isExternal>
+                            <Link color="blue" href={process.env.REACT_APP_TELEGRAM} isExternal>
                                 Telegram  <Icon />
-                                {" "}<Badge colorScheme="red" variant="outline">unavailable</Badge>
                             </Link>
                         </Stack>
                         <Stack align={'flex-start'}>
                             <ListHeader>Others</ListHeader>
-                            <Link color="blue.600" to="/feedback" as={RouterLink}>Feedback</Link>
+                            <Link color="blue" to="/feedback" as={RouterLink}>Feedback</Link>
                             <Text>
                                 Dark mode: <ColorModeSwitcher justifySelf="flex-end" />
                             </Text>

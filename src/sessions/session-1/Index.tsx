@@ -32,7 +32,7 @@ const SegmentManager = ({ match: { params }}) => {
                 <Route exact path={`${path}/interacting-with-python`} component={InteractingWithPython}/>
                 <Route exact path={`${path}/variables-and-strings`} component={VariablesAndStrings}/>
             </Switch>
-            <ButtonGroup my="68px" display="flex" colorScheme="teal" justifyContent="right" spacing="18" marginTop="32px">
+            <ButtonGroup py="68px" display="flex" colorScheme="teal" justifyContent="right" spacing="18" marginTop="32px">
                 <Button 
                     hidden={topicNumber === 0}
                     as={Link}

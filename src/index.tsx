@@ -16,8 +16,9 @@ const app = (
 const rootElement = document.getElementById('root')
 if (rootElement && rootElement!.hasChildNodes()) {
   hydrate(app, rootElement)
-  serviceWorker.register()
-  reportWebVitals()
 } else {
   render(app, rootElement)
 }
+
+serviceWorker.register()
+reportWebVitals()

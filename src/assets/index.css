@@ -1,6 +1,6 @@
 main.container {
   position: relative;
-  min-height: 100vh;
+  min-height: calc(100vh - 5rem - 64px - 7.7rem);
   padding-bottom: 2.5rem;
 }
 
