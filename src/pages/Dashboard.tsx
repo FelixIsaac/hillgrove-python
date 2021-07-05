@@ -7,7 +7,7 @@ const DashboardItem = React.lazy(() => import('../components/DashboardItem'));
 const WelcomeAdverb = () => {
     const [index, setIndex] = useState(0);
     const hours = new Date().getHours();
-    const time = hours > 12 ? 'Afternoon' : hours > 17 ? 'Evening' : 'Good morning';
+    const time = hours > 17 ? 'Evening' : hours > 12 ? 'Afternoon' : 'Good morning';
     const words = [time, 'Hello', 'Welcome', 'Howdy', 'How are you', 'How goes it', 'Hey', 'What\'s up'];
     const word = words[index % words.length];
 
