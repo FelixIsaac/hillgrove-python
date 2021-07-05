@@ -5,6 +5,7 @@ import UserContextComponent from "./contexts/UserContext";
 import theme from './theme';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import ScrollToTop from "./components/ScrollToTop";
 
 const Home = React.lazy(() => import('./pages/Home'));
 const SessionManager = React.lazy(() => import('./pages/Session'));
@@ -15,6 +16,7 @@ const App = () => (
   <UserContextComponent>
     <ChakraProvider theme={theme}>
       <Router>
+      <ScrollToTop />
         <Header />
         <main className="container">
           <Suspense fallback={<Center minHeight="100vh"><Spinner size="xl"/></Center>}>
