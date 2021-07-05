@@ -17,6 +17,7 @@ export const initUser = {
     firstName: '',
     name: '',
     email: '',
+    googleId: '',
     updateUser
 };
 

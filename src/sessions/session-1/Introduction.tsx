@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Heading, Text, Image, Center, Alert, AlertIcon, AlertTitle, AlertDescription, Box } from '@chakra-ui/react';
 import { UserContext } from '../../contexts/UserContext';
 
-const SegmentManager = () => {
+const Introduction = () => {
     const user = useContext(UserContext);
 
     return (
@@ -110,4 +110,4 @@ const SegmentManager = () => {
     )
 }
 
-export default SegmentManager;
+export default Introduction;
