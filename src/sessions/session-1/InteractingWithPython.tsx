@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { Link as BrowserLink } from 'react-router-dom';
 import { FiExternalLink } from 'react-icons/fi';
-import CodeSnippet from '../../components/CodeSnippet';
 import { UserContext } from '../../contexts/UserContext';
+import CodeSnippet from '../../components/CodeSnippet';
 
 import {
     Heading,
@@ -21,7 +21,7 @@ import {
 
 const ExternalIcon = () => <FiExternalLink style={{ display: 'inline' }}/>
 
-const SegmentManager = () => {
+const InteractingWithPython = () => {
     const user = useContext(UserContext);
 
     return (
@@ -81,8 +81,8 @@ const SegmentManager = () => {
                 <CodeSnippet code='print("Hello, World!")'/>
             </Text>
             <Text>
-                What this is going to do, is to print out "Hello, World!" onto the screen. This screen is called a console. So whatever you put inside the
-                quotation marks will be printed out onto the console.
+                Good job {user.firstName}! What this is going to do, is to print out "Hello, World!" onto the screen. This screen is called a console.
+                So whatever you put inside the quotation marks will be printed out onto the console.
             </Text>
             <Center>
                 <Image src="/images/helloworld.jpg" alt="Python 'Hello World' meme" width="md"/>
@@ -101,7 +101,7 @@ const SegmentManager = () => {
                 <CodeSnippet code={[
                     `print("There once was a lady named Amelia, ")`,
                     `print("she was 24 years old. ")`,
-                    `print("She really liked the name Amelia, ")`,
+                    `print("She liked the name, Amelia, ")`,
                     `print("but didn't like being 24. ")`
                 ]}/>
             </Text>
@@ -112,4 +112,4 @@ const SegmentManager = () => {
     )
 }
 
-export default SegmentManager;
+export default InteractingWithPython;

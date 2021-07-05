@@ -4,6 +4,7 @@ import { Button, ButtonGroup } from '@chakra-ui/react';
 import textToURL from '../../utils/textToURL';
 const Introduction = React.lazy(() => import('./Introduction'));
 const InteractingWithPython = React.lazy(() => import('./InteractingWithPython'));
+const VariablesAndStrings = React.lazy(() => import('./VariablesAndStrings'));
 
 const SegmentManager = ({ match: { params }}) => {
     const { path, url } = useRouteMatch();
@@ -13,7 +14,8 @@ const SegmentManager = ({ match: { params }}) => {
     
     const topics = [
         'introduction',
-        'interacting-with-python'
+        'interacting-with-python',
+        'variables-and-strings',
     ]
     
     // todo: default to last saved segment
@@ -28,6 +30,7 @@ const SegmentManager = ({ match: { params }}) => {
             <Switch>
                 <Route exact path={`${path}/introduction`} component={Introduction}/>
                 <Route exact path={`${path}/interacting-with-python`} component={InteractingWithPython}/>
+                <Route exact path={`${path}/variables-and-strings`} component={VariablesAndStrings}/>
             </Switch>
             <ButtonGroup my="68px" display="flex" colorScheme="teal" justifyContent="right" spacing="18" marginTop="32px">
                 <Button 
