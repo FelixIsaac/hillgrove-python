@@ -1,20 +1,15 @@
 import React, { useContext } from 'react';
-import { Link as BrowserLink } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
 import CodeSnippet from '../../components/CodeSnippet';
 
 import {
     Heading,
     Text,
-    Image,
-    Center,
     Alert,
     AlertIcon,
     AlertTitle,
     AlertDescription,
     Box,
-    Button,
-    Link,
     Kbd
 } from '@chakra-ui/react';
 
