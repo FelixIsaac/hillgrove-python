@@ -1,6 +1,6 @@
 import React, { createContext } from 'react';
 
-const getToken = () => document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, "$1")
+export const getToken = () => document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, "$1")
 
 function updateUser(jwt?: string) {
         if (!jwt) jwt = getToken();
@@ -16,7 +16,6 @@ export const initUser = {
     exp: 0,
     firstName: '',
     name: '',
-    email: '',
     googleId: '',
     updateUser
 };
