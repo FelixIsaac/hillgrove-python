@@ -1,6 +1,12 @@
 import React, { createContext } from 'react';
 
-export const getToken = () => document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, "$1")
+export function getCookie(name: string) {
+  const value = `; ${document.cookie}`;
+  const parts: string[] = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop()?.split(';').shift();
+}
+
+export const getToken = () => getCookie('token');
 
 function updateUser(jwt?: string) {
         if (!jwt) jwt = getToken();

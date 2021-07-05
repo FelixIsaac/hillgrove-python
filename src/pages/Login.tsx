@@ -2,7 +2,7 @@ import React, { Fragment, useState, useContext } from "react";
 import { Image, Center, Flex, Heading, Text, Alert, AlertIcon, AlertTitle, AlertDescription } from "@chakra-ui/react"
 import GoogleLogin, { GoogleLoginResponse } from 'react-google-login';
 import SignInButton from '../components/SignInButton';
-import { UserContext } from "../contexts/UserContext";
+import { UserContext, getCookie } from "../contexts/UserContext";
 
 const Home = () => {
     const user = useContext(UserContext);
@@ -15,12 +15,19 @@ const Home = () => {
     
     async function loginSuccess(response: GoogleLoginResponse) {
         try {
+            // get CSRF token
+            await fetch(`${process.env.REACT_APP_BACKEND_API}/authentication`, {
+                credentials: 'include'
+            });
+            
             const serverResponse = await fetch(`${process.env.REACT_APP_BACKEND_API}/authentication`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Authorization': response.tokenId,
-                    'Content-Type': 'text/plain'
-                },
+                    'Content-Type': 'text/plain',
+                    'X-CSRFToken': getCookie('csrftoken')
+                } as { 'X-CSRFToken': string },
                 body: response.tokenId
             });
 
@@ -34,7 +41,6 @@ const Home = () => {
             setLoginDescription('Redirecting to course dashboard, please wait...')
 
             // set cookie
-            document.cookie = `token=${await serverResponse.text()};expires=${Date.now() + 1.037e+9};`;
             document.location.href = '/';
             user.updateUser();
         } catch (err) {
