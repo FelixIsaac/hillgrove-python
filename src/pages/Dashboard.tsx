@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Text, Container } from '@chakra-ui/react';
 import { UserContext } from '../contexts/UserContext';
 import Typist from 'react-typist';
@@ -27,22 +27,25 @@ const WelcomeAdverb = () => {
 }
 
 const Dashboard = () => {
-    const data = [
-        'Introduction to Python & Programming in General',
-        'Flow Control & Object Oriented Programming',
-        'Python Modules, Frameworks, and Libraries',
-        'Python advanced topics and file handling',
-        'Data Science Introduction using Python',
-        'Advanced Python with Code Introspection'
-    ]
+    const [loading, setLoading] = useState(true);
+    const [sessions, setSessions] = useState([]);
+    
+    useEffect(() => {
+        const fromStorage = sessionStorage.getItem('python-sessions');
+        
+        if (fromStorage) {
+            setLoading(false)
+            return setSessions(JSON.parse(fromStorage));
+        }
 
-    const description = [
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-        'incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud',
-        'exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure',
-        'dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur',
-        'sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-    ]
+        fetch(`${process.env.REACT_APP_BACKEND_API}/session/all`)
+            .then(response => response.json())
+            .then(({ sessions }) => {
+                sessionStorage.setItem('python-sessions', JSON.stringify(sessions))
+                setSessions(sessions)
+            })
+            .finally(() => setLoading(false))
+    }, [])
 
     const user = useContext(UserContext);
 
@@ -56,8 +59,23 @@ const Dashboard = () => {
                 <span role="img" aria-label="waving hand emoji">👋</span>
                 <WelcomeAdverb/>, {user.firstName}
             </Text>
-            
-            {data.map((title, i) => <DashboardItem session={i + 1} title={title} key={i} description={description.join('')} />)}
+            {
+                loading ? (
+                    Array(6).fill().map((d, i) => <DashboardItem loading key={i} />)
+                ) : (
+                    sessions.map(({
+                        name,
+                        description
+                    }, i) => (
+                        <DashboardItem
+                            title={name}
+                            description={description}
+                            session={i + 1}
+                            key={i}
+                        />
+                    ))  
+                )
+            }
         </Container>
     )
 }

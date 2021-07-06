@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import { Route, Switch, useRouteMatch, useHistory, Link } from 'react-router-dom';
 import { Button, ButtonGroup } from '@chakra-ui/react';
 import textToURL from '../../utils/textToURL';
@@ -6,20 +6,14 @@ const Introduction = React.lazy(() => import('./Introduction'));
 const InteractingWithPython = React.lazy(() => import('./InteractingWithPython'));
 const VariablesAndStrings = React.lazy(() => import('./VariablesAndStrings'));
 
-const SegmentManager = ({ match: { params }}) => {
+const SegmentManager = ({ match: { params }, onTopicUpdate, sessionData }: any) => {
     const { path, url } = useRouteMatch();
     const history = useHistory();
+    const topics = sessionData.topics.map(({ name }) => textToURL(name));
 
-    const title = 'Introduction to Python & Programming in General';
-    
-    const topics = [
-        'introduction',
-        'interacting-with-python',
-        'variables-and-strings',
-    ]
-    
-    // todo: default to last saved segment
-    if (!params.title) history.replace(`${url}/${textToURL(title)}`);
+    useEffect(() => onTopicUpdate(params.title, params.topic), [params.topic])
+
+    if (!params.title) history.replace(`${url}/${textToURL(sessionData.name)}`);
     else if (!params.topic) history.replace(`${url}/introduction`)
 
     const topicNumber = topics.findIndex((topic) => topic === params.topic);

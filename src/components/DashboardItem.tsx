@@ -8,7 +8,9 @@ import {
     Center,
     Text,
     Badge,
-    useColorModeValue
+    useColorModeValue,
+    SkeletonText,
+    Skeleton
 } from '@chakra-ui/react';
 
 interface DashboardItemProps {
@@ -17,7 +19,7 @@ interface DashboardItemProps {
     description: string;
 }
 
-const DashboardItem = ({ title, session, description }: DashboardItemProps) => {
+const DashboardItem = ({ title, session, description, loading }: DashboardItemProps) => {
     const history = useHistory();
 
     return (
@@ -33,13 +35,23 @@ const DashboardItem = ({ title, session, description }: DashboardItemProps) => {
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
                 as={motion.button}
-                onClick={() => history.push(`/session/${session}/${textToURL(title)}`)}
+                onClick={() => !loading && history.push(`/session/${session}/${textToURL(title)}`)}
             >
-                <Heading fontSize={'2xl'}>
-                    <Badge margin="8px" colorScheme="blue">Session {session}</Badge>
-                    {title}
-                </Heading>
-                <Text textAlign={'center'} color={useColorModeValue('gray.700', 'gray.400')} px={3}>{description}</Text>
+                <Skeleton isLoaded={!loading}>
+                    <Heading fontSize={'2xl'}>
+                        <Badge margin="8px" colorScheme="blue">Session {session}</Badge>
+                        {title}
+                    </Heading>
+                </Skeleton>
+                <Text textAlign={'center'} color={useColorModeValue('gray.700', 'gray.400')} px={3}>
+                    {
+                        loading ? (
+                            <SkeletonText mt="4" noOfLines={3} spacing="4" />
+                        ) : (
+                            description
+                        )
+                    }
+                </Text>
             </Box>
         </Center>
     ); 
