@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { Route, Switch, useRouteMatch, useHistory, Link } from 'react-router-dom';
 import { Button, ButtonGroup } from '@chakra-ui/react';
 import textToURL from '../../utils/textToURL';
@@ -11,13 +11,15 @@ const SegmentManager = ({ match: { params }, onTopicUpdate, sessionData }: any) 
     const history = useHistory();
     const topics = sessionData.topics.map(({ name }) => textToURL(name));
 
-    useEffect(() => onTopicUpdate(params.title, params.topic), [params.topic])
+    if (params.title !== textToURL(sessionData.name)) history.replace('/')
 
     if (!params.title) history.replace(`${url}/${textToURL(sessionData.name)}`);
     else if (!params.topic) history.replace(`${url}/introduction`)
 
+    useEffect(() => onTopicUpdate(params.title, params.topic), [onTopicUpdate, params.title, params.topic]);
+    
     const topicNumber = topics.findIndex((topic) => topic === params.topic);
-    if (topicNumber === -1 && params.topic) history.replace(`/session/1/${params.title}/introduction`)// topic not found
+    if (topicNumber === -1 && params.topic) history.replace(`/session/1/${params.title}/introduction`)// topic not found, default to last topic
 
     return (
         <>

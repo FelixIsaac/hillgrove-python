@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Text, Container } from '@chakra-ui/react';
 import { UserContext } from '../contexts/UserContext';
 import Typist from 'react-typist';
+import { getProgress } from "../utils/Progress";
 const DashboardItem = React.lazy(() => import('../components/DashboardItem'));
 
 const WelcomeAdverb = () => {
@@ -29,7 +30,8 @@ const WelcomeAdverb = () => {
 const Dashboard = () => {
     const [loading, setLoading] = useState(true);
     const [sessions, setSessions] = useState([]);
-    
+    const [progress, setProgress] = useState([])
+
     useEffect(() => {
         const fromStorage = sessionStorage.getItem('python-sessions');
         
@@ -45,6 +47,11 @@ const Dashboard = () => {
                 setSessions(sessions)
             })
             .finally(() => setLoading(false))
+    }, [])
+
+    useEffect(() => {
+        getProgress()
+            .then(setProgress)
     }, [])
 
     const user = useContext(UserContext);
@@ -70,6 +77,7 @@ const Dashboard = () => {
                         <DashboardItem
                             title={name}
                             description={description}
+                            lastTopic={progress.find(({ last_session }) => last_session === name)?.last_topic}
                             session={i + 1}
                             key={i}
                         />

@@ -17,9 +17,11 @@ interface DashboardItemProps {
     title: string;
     session: number;
     description: string;
+    loading: boolean;
+    lastTopic: string;
 }
 
-const DashboardItem = ({ title, session, description, loading }: DashboardItemProps) => {
+const DashboardItem = ({ title, session, description, loading, lastTopic }: DashboardItemProps) => {
     const history = useHistory();
 
     return (
@@ -35,7 +37,7 @@ const DashboardItem = ({ title, session, description, loading }: DashboardItemPr
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
                 as={motion.button}
-                onClick={() => !loading && history.push(`/session/${session}/${textToURL(title)}`)}
+                onClick={() => !loading && history.push(`/session/${session}/${textToURL(title)}/${textToURL(lastTopic || '')}`)}
             >
                 <Skeleton isLoaded={!loading}>
                     <Heading fontSize={'2xl'}>

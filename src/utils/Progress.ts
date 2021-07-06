@@ -15,7 +15,7 @@ interface IProgress {
 }
 
 export const updateProgress: UpdateProgressFunc = async (session, topic) => {
-    const localSession = JSON.parse(localStorage.getItem('session') || '{"sessions":[]}');
+    const localSession = JSON.parse(localStorage.getItem('session-progress') || '{"sessions":[]}');
     const updatedSessions = localSession.sessions.filter(({ last_session }: ISession) => last_session !== session)
        
     updatedSessions.push({
@@ -23,12 +23,12 @@ export const updateProgress: UpdateProgressFunc = async (session, topic) => {
         last_topic: topic
     })
     
-    localStorage.setItem('session', JSON.stringify({
+    localStorage.setItem('session-progress', JSON.stringify({
         sessions: updatedSessions
     }));
 
     const response = await fetch(`${process.env.REACT_APP_BACKEND_API}/users/progress`, {
-        method: 'POST',
+        method: 'PATCH',
         headers: {
             'Authorization': getToken() || '',
             'Content-Type': 'application/json'
@@ -46,8 +46,27 @@ export const updateProgress: UpdateProgressFunc = async (session, topic) => {
     return true;
 }
 
-export const getProgress: GetProgressFunc = (session) => {
-    const localSession = JSON.parse(localStorage.getItem('session') || '{"sessions":[]}');
+export const getProgress: GetProgressFunc = async (session) => {
+    const sessionProgress = localStorage.getItem('session-progress');
+    const { sessions: localSession } = JSON.parse(sessionProgress || '{"sessions":[]}');
+
+    if (!sessionProgress) {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_API}/users/progress`, {
+            method: 'GET',
+            headers: {
+                'Authorization': getToken()
+            }
+        });
+
+        if (!response.ok) {
+            throw response;
+        }
+
+        const { sessions: progress} = await response.json();
+        localStorage.setItem('session-progress', JSON.stringify({ sessions: progress }));
+        
+        return progress;
+    }
     
     if (session) {
         const results = localSession.filter(({ last_session }: ISession) => last_session === session);
@@ -56,7 +75,7 @@ export const getProgress: GetProgressFunc = (session) => {
         else return {}
     }
 
-    return localSession.sessions;
+    return localSession;
 }
 
 export const initProgress: IProgress = {
