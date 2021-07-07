@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import { UserContext } from '../../contexts/UserContext';
+import React     from 'react';
 import CodeSnippet from '../../components/CodeSnippet';
 import {
     Heading,
@@ -8,8 +7,6 @@ import {
 } from '@chakra-ui/react';
 
 const Comments = () => {
-    const user = useContext(UserContext);
-
     return (
         <Box as="article" fontSize="18px">
             <Heading as="h1">Comments</Heading>

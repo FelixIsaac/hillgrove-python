@@ -9,7 +9,6 @@ import {
     AlertTitle,
     AlertDescription,
     Box,
-    Link,
     Kbd
 } from '@chakra-ui/react';
 
