@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 import CodeSnippet from '../../components/CodeSnippet';
-
 import {
     Heading,
     Text,
@@ -10,6 +9,7 @@ import {
     AlertTitle,
     AlertDescription,
     Box,
+    Link,
     Kbd
 } from '@chakra-ui/react';
 
@@ -144,6 +144,63 @@ const VariablesAndStrings = () => {
                     `print("She liked the name, " + character_name + ", ")`,
                     `print("but didn't like being " + character_age + ". "),`
                 ]}/>
+            </Text>
+            <Text>
+                But let's say halfway through the story, we want to change or update the character's name to "Emma".
+                Well, you can do that with variables. So what we can do is,
+                <CodeSnippet code={[
+                    `character_name = "Mia"`,
+                    `character_age = "34"`,
+                    ``,
+                    `print("There once was a lady named " + character_name + ", ")`,
+                    `print("she was " + character_age + " years old. ")`,
+                    ``,
+                    `character_name = "Emma"`,
+                    ``,
+                    `print("She liked the name, " + character_name + ", ")`,
+                    `print("but didn't like being " + character_age + ". ")`
+                ]}/>
+            </Text>
+            <Text>
+                You can run this code in your REPL and see the output. In programming terms, this is what we call <Kbd>variable reassignment</Kbd>,
+                where we are assigning a new value to a variable. And when we are creating variables, this is called <Kbd>variable assignment</Kbd>
+                or <Kbd>variable declaration</Kbd>, we are assigning a value to a new variable.
+            </Text>
+            <Heading as="h2">Variable Names</Heading>
+            <Text>
+                A variable can have a short name (like x and y) or a more descriptive name (age, carname, total_volume). Rules for Python variables:
+                <ul>
+                    <li>A variable name must start with a letter or the underscore character</li>
+                    <li>A variable name cannot start with a number</li>
+                    <li>A variable name can only contain alpha-numeric characters and underscores (A-z, 0-9, and _ )</li>
+                    <li>Variable names are case-sensitive (age, Age and AGE are three different variables)</li>
+                </ul>
+            </Text>
+            <Heading as="h2">Multi Words Variable Names</Heading>
+            <Text>
+                Variable names with more than one word can be difficult to read. Some ways to make them more readable by using standard cases.
+            </Text>
+            <Heading as="h3">Snake Case</Heading>
+            <Text>
+                This is what most people use when programming in Python, you can{" "}
+                <Link color="blue" isExternal href="https://www.python.org/dev/peps/pep-0008/">read more about this</Link>.
+                Each word is separated by an underscore character:
+                <CodeSnippet code={`my_variable_name = "John"`} />
+                <Alert status="success" my="8px">
+                    <AlertIcon />
+                    <AlertTitle>Joke:</AlertTitle>
+                    <AlertDescription>Of course, <em>Python</em> uses snake_case. That should be obvious.</AlertDescription>
+                </Alert>
+            </Text>
+            <Heading as="h3">Camel Case</Heading>
+            <Text>
+                Each word, except the first, starts with a capital letter:
+                <CodeSnippet code={`myVariableName = "John"`} />
+            </Text>
+            <Heading as="h3">Pascal Case</Heading>
+            <Text>
+                Each word starts with a capital letter:
+                <CodeSnippet code={`MyVariableName = "John"`} />
             </Text>
         </Box>
 

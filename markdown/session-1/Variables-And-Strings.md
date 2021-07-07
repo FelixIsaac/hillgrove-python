@@ -100,3 +100,60 @@ print("She liked the name, " + character_name + ", ")
 print("but didn't like being " + character_age + ". ")
 ```
 
+But let's say halfway through the story, we want to change or update the character's name to "Emma". Well, you can do that with variables. So what we can do is,
+
+```py
+character_name = "Mia"
+character_age = "34"
+
+print("There once was a lady named " + character_name + ", ")
+print("she was " + character_age + " years old. ")
+
+character_name = "Emma"
+
+print("She liked the name, " + character_name + ", ")
+print("but didn't like being " + character_age + ". ")
+```
+
+You can run this code in your REPL and see the output. In programming terms, this is what we call `variable reassignment`, where we are assigning a new value to a variable. And when we are creating variables, this is called `variable assignment` or `variable declaration`, we are assigning a value to a **new** variable.
+
+## Variable Names
+A variable can have a short name (like x and y) or a more descriptive name (age, carname, total_volume). Rules for Python variables:
+
+- A variable name must start with a letter or the underscore character
+- A variable name cannot start with a number
+- A variable name can only contain alpha-numeric characters and underscores (A-z, 0-9, and _ )
+- Variable names are case-sensitive (age, Age and AGE are three different variables)
+
+## Multi Words Variable Names
+
+Variable names with more than one word can be difficult to read. Some ways to make them more readable by using standard cases.
+
+### Snake Case
+
+This is what most people use when programming in Python, you can [read more about this](https://www.python.org/dev/peps/pep-0008/). Each word is separated by an underscore character:
+
+```py
+my_variable_name = "John"
+```
+
+> Joke: Of course, *Python* uses snake_case. That should be obvious.
+
+### Camel Case
+
+Each word, except the first, starts with a capital letter:
+
+```py
+myVariableName = "John"
+```
+
+### Pascal Case
+
+Each word starts with a capital letter:
+
+```py
+MyVariableName = "John"
+```
+## Strings
+
+So you may be wondering what are strings? Well in `character_name = "Mia"`, the `"Mia"`is a string, and essentially, they are plain text. So there's a data type in Python, called a string, which basically stores plain text. There are many other data types you will encounter later on.
