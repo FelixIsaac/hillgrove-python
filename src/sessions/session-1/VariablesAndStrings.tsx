@@ -185,7 +185,7 @@ const VariablesAndStrings = () => {
                 This is what most people use when programming in Python, you can{" "}
                 <Link color="blue" isExternal href="https://www.python.org/dev/peps/pep-0008/">read more about this</Link>.
                 Each word is separated by an underscore character:
-                <CodeSnippet code={`my_variable_name = "John"`} />
+                <CodeSnippet code={`my_variable_name = "${user.firstName}"`} />
                 <Alert status="success" my="8px">
                     <AlertIcon />
                     <AlertTitle>Joke:</AlertTitle>
@@ -195,12 +195,12 @@ const VariablesAndStrings = () => {
             <Heading as="h3">Camel Case</Heading>
             <Text>
                 Each word, except the first, starts with a capital letter:
-                <CodeSnippet code={`myVariableName = "John"`} />
+                <CodeSnippet code={`myVariableName = "${user.firstName}"`} />
             </Text>
             <Heading as="h3">Pascal Case</Heading>
             <Text>
                 Each word starts with a capital letter:
-                <CodeSnippet code={`MyVariableName = "John"`} />
+                <CodeSnippet code={`MyVariableName = "${user.firstName}"`} />
             </Text>
         </Box>
 

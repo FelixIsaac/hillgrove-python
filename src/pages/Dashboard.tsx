@@ -66,6 +66,11 @@ const Dashboard = () => {
                 <span role="img" aria-label="waving hand emoji">👋</span>
                 <WelcomeAdverb/>, {user.firstName}
             </Text>
+            <Text
+                fontSize="lg"
+                textAlign="center"
+                color="red"
+            ><em>**</em>Please wait as some topics are yet to be uploaded</Text>
             {
                 loading ? (
                     Array(6).fill().map((d, i) => <DashboardItem loading key={i} />)

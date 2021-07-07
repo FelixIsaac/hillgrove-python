@@ -6,6 +6,7 @@ const Introduction = React.lazy(() => import('./Introduction'));
 const InteractingWithPython = React.lazy(() => import('./InteractingWithPython'));
 const VariablesAndStrings = React.lazy(() => import('./VariablesAndStrings'));
 const Comments = React.lazy(() => import('./Comments'));
+const DataTypes = React.lazy(() => import('./DataTypes'));
 
 const SegmentManager = ({ match: { params }, onTopicUpdate, sessionData }: any) => {
     const { path, url } = useRouteMatch();
@@ -29,6 +30,8 @@ const SegmentManager = ({ match: { params }, onTopicUpdate, sessionData }: any) 
                 <Route exact path={`${path}/interacting-with-python`} component={InteractingWithPython}/>
                 <Route exact path={`${path}/variables-and-strings`} component={VariablesAndStrings}/>
                 <Route exact path={`${path}/comments`} component={Comments}/>
+                <Route exact path={`${path}/data-types`} component={DataTypes}/>
+                <Route exact path={`${path}/builtin-functions`} component={Comments}/>
             </Switch>
             <ButtonGroup py="68px" display="flex" colorScheme="teal" justifyContent="right" spacing="18" marginTop="32px">
                 <Button 

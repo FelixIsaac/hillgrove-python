@@ -4,13 +4,7 @@ import CodeSnippet from '../../components/CodeSnippet';
 import {
     Heading,
     Text,
-    Alert,
-    AlertIcon,
-    AlertTitle,
-    AlertDescription,
-    Box,
-    Link,
-    Kbd
+    Box
 } from '@chakra-ui/react';
 
 const Comments = () => {
