@@ -7,6 +7,8 @@ const InteractingWithPython = React.lazy(() => import('./InteractingWithPython')
 const VariablesAndStrings = React.lazy(() => import('./VariablesAndStrings'));
 const Comments = React.lazy(() => import('./Comments'));
 const DataTypes = React.lazy(() => import('./DataTypes'));
+const BuiltinFunctions = React.lazy(() => import('./BuiltinFunctions'));
+const TypeConversion = React.lazy(() => import('./TypeConversion'));
 
 const SegmentManager = ({ match: { params }, onTopicUpdate, sessionData }: any) => {
     const { path, url } = useRouteMatch();
@@ -31,7 +33,8 @@ const SegmentManager = ({ match: { params }, onTopicUpdate, sessionData }: any) 
                 <Route exact path={`${path}/variables-and-strings`} component={VariablesAndStrings}/>
                 <Route exact path={`${path}/comments`} component={Comments}/>
                 <Route exact path={`${path}/data-types`} component={DataTypes}/>
-                <Route exact path={`${path}/builtin-functions`} component={Comments}/>
+                <Route exact path={`${path}/builtin-functions`} component={BuiltinFunctions}/>
+                <Route exact path={`${path}/type-conversion`} component={TypeConversion}/>
             </Switch>
             <ButtonGroup py="68px" display="flex" colorScheme="teal" justifyContent="right" spacing="18" marginTop="32px">
                 <Button 
