@@ -4,11 +4,21 @@ import Highlight, { defaultProps } from "prism-react-renderer";
 import theme from "prism-react-renderer/themes/nightOwl";
 import { Kbd } from "@chakra-ui/layout";
 
-const CodeEditor = ({ code: initCode }) => {
-    const [code, updateCode] = useState(initCode.join('\n'))
+export interface ICodeEditor {
+    code: string[];
+    onChange(code: string[]): void;
+}
 
-    const highlight = (code) => (
-        <Highlight {...defaultProps} theme={theme} code={code} language="py">
+const CodeEditor = ({ code: initCode, onChange }: ICodeEditor) => {
+    const [code, setCode] = useState(initCode.join('\n'));
+
+    const updateCode = (code: string) => {
+        onChange && onChange(code.split('\n'))
+        setCode(code);
+    }
+
+    const highlight = (code: string) => (
+        <Highlight {...defaultProps} theme={theme} code={code} language="python">
             {({ tokens, getLineProps, getTokenProps }) => (
                 <Fragment>
                     {tokens.map((line, i) => (

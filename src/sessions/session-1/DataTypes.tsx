@@ -112,11 +112,14 @@ const DataTypes = () => {
                     <li>He is 20 years old.</li>
                     <li>He is a new patient</li>
                 </ul>
-                <CodeExercise code={[
-                    `patient_name =`,
-                    `patient_age =`,
-                    `new_patient =`
-                ]} />
+                <CodeExercise
+                    code={[
+                        `patient_name =`,
+                        `patient_age =`,
+                        `new_patient =`
+                    ]}
+                    hint={['Remember about the data types and how you can represent the those data types for the patient.']}
+                />
             </>
         </Box>
     )
