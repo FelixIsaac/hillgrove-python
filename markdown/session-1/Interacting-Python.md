@@ -54,4 +54,20 @@ print("She really liked the name Amelia, ")
 print("but didn't like being 24. ")
 ```
 
+---
+### Important note
+
+Python is a `case-sensitive` language. Meaning that lower case and upper case characters have different meanings.
+
+---
+
+For example, you cannot run
+
+```py
+PRINT("There once was a lady named Amelia, ")
+pRint("she was 24 years old. ")
+Print("She really liked the name Amelia, ")
+prinT("but didn't like being 24. ")
+```
+
 To conclude, the `print` statement will print whatever you put inside the quotation marks (a string) to the console.
