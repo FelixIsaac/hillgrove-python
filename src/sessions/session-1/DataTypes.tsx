@@ -11,6 +11,8 @@ import {
     Box,
     Kbd
 } from '@chakra-ui/react';
+import CodeExercise from '../../components/Exercise';
+import VideoPlayer from '../../components/VideoPlayer';
 
 const DataTypes = () => {
     const user = useContext(UserContext);
@@ -18,6 +20,10 @@ const DataTypes = () => {
     return (
         <Box as="article" fontSize="18px">
             <Heading as="h1">Data Types</Heading>
+            <VideoPlayer
+                src="https://www.youtube-nocookie.com/embed/ZkLNDbtUhRk"
+                title="Hillgrove Python Course: Data Types"
+            />
             <Text>
                 You are doing great {user.firstName}! Recall that in the last topic, I mentioned that variables are containers that store data.
                 Well, this is not exactly true. When you define a variable and run the program, Python will allocate some memory and store the value in that{" "}
@@ -106,7 +112,7 @@ const DataTypes = () => {
                     <li>He is 20 years old.</li>
                     <li>He is a new patient</li>
                 </ul>
-                <CodeSnippet code={[
+                <CodeExercise code={[
                     `patient_name =`,
                     `patient_age =`,
                     `new_patient =`

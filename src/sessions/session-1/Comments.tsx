@@ -1,5 +1,6 @@
-import React     from 'react';
+import React from 'react';
 import CodeSnippet from '../../components/CodeSnippet';
+import VideoPlayer from '../../components/VideoPlayer';
 import {
     Heading,
     Text,
@@ -10,6 +11,10 @@ const Comments = () => {
     return (
         <Box as="article" fontSize="18px">
             <Heading as="h1">Comments</Heading>
+            <VideoPlayer
+                src="https://www.youtube-nocookie.com/embed/DHa9sL-GPBk"
+                title="Hillgrove Python Course: Comments"
+            />
             <Text>
                 Comments starts with a #, and Python will ignore them:
                 <CodeSnippet code={[

@@ -1,13 +1,17 @@
 import React, { useContext } from 'react';
-import { Heading, Text, Image, Center, Alert, AlertIcon, AlertTitle, AlertDescription, Box } from '@chakra-ui/react';
+import { Heading, Text, Image, Center, Alert, AlertIcon, AlertTitle, AlertDescription, Box, AspectRatio } from '@chakra-ui/react';
 import { UserContext } from '../../contexts/UserContext';
-
+import VideoPlayer from '../../components/VideoPlayer';
 const Introduction = () => {
     const user = useContext(UserContext);
 
     return (
         <Box as="article" fontSize="18px">
             <Heading as="h1">Introduction</Heading>
+            <VideoPlayer
+                src="https://www.youtube-nocookie.com/embed/HwWyhwUxCX8"
+                title="Hillgrove Python Course: Introduction"
+            />
             <Text>
                 In this course, I will teach you everything you need to get started in Python and its core concepts. 
                 The lesson has been specially designed with examples and coding exercises that enforces what you have 
@@ -52,25 +56,13 @@ const Introduction = () => {
             <Text>
                 Let’s also take a quick look at how some of the big tech companies are using the language. Google is a company
                 that has used Python from the start, and it’s gained a place as one of the tech giant’s main server-side
-                languages alongside C++, Java, and Golang. Instagram likes Python for its simplicity. The service is known for
-                running. Even Spotify puts the language to use in its data analysis and back-end services so that they can
-                perform a ton of analyses to give recommendations to their users, and Python helps with that, they need
+                languages alongside C++, Java, and Golang. Instagram likes Python for its simplicity.
+                Even Spotify puts the language to use in its data analysis and back-end services so that they can
+                perform a ton of analysis to give recommendations to their users, and Python helps with that, they need
                 something that’s simple but also works well. Last but not least, Reddit uses Python as its software backbone,
                 the social discussion platform, which had 542 million visitors every month across 2017 — which is the fourth
                 most visited website in the U.S. and seventh-most visited in the world.
             </Text>
-            {/* <Text>
-                Compared to other programming languages, Python has the following features (don't worry if you don't understand
-                these terms, we'll cover them in a later session):
-                <ul>
-                    <li><strong>Interpreted:</strong> It’s portable and quicker to experiment with than compiled languages.</li>
-                    <li><strong>Multiparadigm:</strong> It lets you write code in different styles, including object-oriented,
-                        imperative, and functional styles.</li>
-                    <li><strong>Dynamically typed:</strong> It checks variable types at runtime, so you don’t need to declare
-                        them explicitly.</li>
-                    <li><strong>Strongly typed:</strong> It won’t let unsafe operations on incompatible types go unnoticed.</li>
-                </ul>
-            </Text> */}
             <div>
                 <Text>Now that I've convinced you to learn Python, here are some of its uses,</Text>
                 <ul>

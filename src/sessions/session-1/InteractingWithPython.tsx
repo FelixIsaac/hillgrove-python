@@ -3,7 +3,7 @@ import { Link as BrowserLink } from 'react-router-dom';
 import { FiExternalLink } from 'react-icons/fi';
 import { UserContext } from '../../contexts/UserContext';
 import CodeSnippet from '../../components/CodeSnippet';
-
+import VideoPlayer from '../../components/VideoPlayer';
 import {
     Heading,
     Text,
@@ -27,6 +27,10 @@ const InteractingWithPython = () => {
     return (
         <Box as="article" fontSize="18px">
             <Heading as="h1" id="interacting-with-python">Interacting with Python</Heading>
+            <VideoPlayer
+                src="https://www.youtube-nocookie.com/embed/yV5KkiJ6rYk"
+                title="Hillgrove Python Course: Interacting with Python"
+            />
             <Text>
                 So {user.firstName}, that you have a basic understanding of what Python is and its uses. Let's start interacting with Python.
                 By the end of this section, you will know how to execute code in a script file and work within a Python
@@ -39,7 +43,7 @@ const InteractingWithPython = () => {
                 </Text>
                 <ol>
                     <li>
-                        Go to <a href="https://replit.com/signup">replit</a> and sign up using your school email or
+                        Go to <Link color="blue" href="https://replit.com/signup">replit</Link> and sign up using your school email or
                         preferred email address.
                     </li>
                     <li>
