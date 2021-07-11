@@ -118,6 +118,20 @@ const DataTypes = () => {
                         `patient_age =`,
                         `new_patient =`
                     ]}
+                    solutionURL={"5/data-types-exercise"}
+                    callback={({ variables }) => {
+                        const tests = [
+                            variables.patient_name === "John Smith",
+                            variables.patient_age === 20,
+                            variables.new_patient === true
+                        ];
+
+                        return {
+                            passed: !tests.includes(false),
+                            passedTests: tests.filter((passed) => passed).length,
+                            totalTests: tests.length
+                        }
+                    }}
                     hint={['Remember about the data types and how you can represent the those data types for the patient.']}
                 />
             </>

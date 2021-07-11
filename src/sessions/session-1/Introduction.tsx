@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
-import { Heading, Text, Image, Center, Alert, AlertIcon, AlertTitle, AlertDescription, Box, AspectRatio } from '@chakra-ui/react';
+import { Heading, Text, Image, Center, Alert, AlertIcon, AlertTitle, AlertDescription, Box } from '@chakra-ui/react';
 import { UserContext } from '../../contexts/UserContext';
 import VideoPlayer from '../../components/VideoPlayer';
+
 const Introduction = () => {
     const user = useContext(UserContext);
 

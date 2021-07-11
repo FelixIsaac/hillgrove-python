@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, lazy } from 'react';
 import { ButtonGroup, Button } from '@chakra-ui/button';
-import CodeEditor from './CodeEditor';
+import { getToken } from '../contexts/UserContext';
 import {
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
+    Alert,
+    AlertIcon,
+    AlertTitle,
+    AlertDescription
 } from "@chakra-ui/alert"
+import CodeEditor from './CodeEditor';
+const Reward = lazy(() => import('react-rewards'));
 
 interface CallbackValues {
     variables: {
         [key: string]: any
     }
-    mod: any
+    mod: any;
+    Sk: any;
 }
 
 interface ICodeExercise {
@@ -23,7 +26,7 @@ interface ICodeExercise {
     callback(values: CallbackValues): boolean
 }
 
-const CodeExercise = ({ code: initCode, attempts: initAttempts, callback, hint }: ICodeExercise) => {
+const CodeExercise = ({ code: initCode, attempts: initAttempts, solutionURL, callback, hint }: ICodeExercise) => {
     const [code, changeCode] = useState(initCode);
     const [prints, updatePrints] = useState([]);
     const [executionStatus, setExecutionStatus] = useState("success")
@@ -32,11 +35,29 @@ const CodeExercise = ({ code: initCode, attempts: initAttempts, callback, hint }
     const [hintVisible, setHintVisible] = useState(false)
     const [passed, setPassed] = useState(false);
     const [attempts, setAttempts] = useState(initAttempts || 0)
+    const [solutionCode, setSolution] = useState('');
+    const [showSolution, setSolutionVisible] = useState(false);
     const [loading, setLoading] = useState(true);
-
+    
+    const reward = useRef();
+    
     const getSolution = () => {
-        
-    }
+        setLoading(true);
+
+        fetch(`${process.env.REACT_APP_BACKEND_API}/session/solution/${solutionURL}`, {
+            headers: {
+                'Authorization': getToken()
+            }
+        })
+            .then(response => response.json())
+            .then((response) => {
+                if (response.error) throw response;
+                
+                setSolution(response.solution.split('\n'));
+                setSolutionVisible(true);
+            })
+            .finally(() => setLoading(false))
+    };
 
     useEffect(() => {
         const script = document.createElement('script');
@@ -51,7 +72,7 @@ const CodeExercise = ({ code: initCode, attempts: initAttempts, callback, hint }
                 output: (out) => updatePrints(previous => [...previous, out]),
                 read: (file) => {
                     if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][file] === undefined) {
-                        throw "File not found: '" + file + "'";
+                        throw new Error("File not found: '" + file + "'");
                     }
 
                     return Sk.builtinFiles["files"][file];
@@ -81,6 +102,13 @@ const CodeExercise = ({ code: initCode, attempts: initAttempts, callback, hint }
             return;
         }
 
+        if (initCode.join('\n') === code.join('\n')) {
+            setExecutionStatus('warning');
+            setExecutionDisplay(true);
+            setExecutionMessage('Copy your solution from your REPL development environment and paste it here to verify your solution');
+            return;
+        }
+
         updatePrints([]);
         setAttempts(attempts + 1);
         setLoading(true);
@@ -97,17 +125,15 @@ const CodeExercise = ({ code: initCode, attempts: initAttempts, callback, hint }
                 });
 
             updatePrints(updatedState => {
-                console.log('updated prints', updatedState);
-
                 setExecutionStatus("success")
                 setExecutionDisplay(true)
                 setExecutionMessage(`Code is syntactically correct. ${!callback ? "No tests defined for this exercise" : "Running tests..."}`)
-            
+           
                 return updatedState;
             });
 
             if (!callback) return setLoading(false);
-
+            
             updatePrints(updatedState => {
                 //  if callback was passed
                 const { passed, totalTests, passedTests } = callback({
@@ -117,12 +143,21 @@ const CodeExercise = ({ code: initCode, attempts: initAttempts, callback, hint }
                     Sk
                 });
     
+                const stats = ` (${passedTests}/${totalTests} passed tests)`;
+
                 if (passed) {
                     setPassed(true)
                     setExecutionStatus("success")
                     setExecutionDisplay(true)
-                    setExecutionMessage(`Your code has passed all test cases: (${passedTests}/${totalTests} tests)`);
+                    setExecutionMessage(`Your code has passed all test cases: ${stats}`);
                     setLoading(false)
+                    reward.current.rewardMe();
+                } else {
+                    setExecutionStatus("error")
+                    setExecutionDisplay(true)
+                    setExecutionMessage(`Your code has failed some test cases, don't give up and please try again. ${stats}`);
+                    setLoading(false)
+                    reward.current.punishMe();
                 }
 
                 return updatedState;
@@ -132,12 +167,13 @@ const CodeExercise = ({ code: initCode, attempts: initAttempts, callback, hint }
             setExecutionDisplay(true)
             setExecutionMessage(err.toString());
             setLoading(false)
+            reward.current.punishMe();
         });
     }
 
     return (
         <>
-            <CodeEditor code={code} onChange={changeCode} />
+            <CodeEditor code={code} solution={{ showSolution, solutionCode }} onChange={changeCode} />
             <Alert status={executionStatus} hidden={!executionDisplay}>
                 <AlertIcon />
                 <AlertTitle mr={2}>
@@ -162,8 +198,8 @@ const CodeExercise = ({ code: initCode, attempts: initAttempts, callback, hint }
             <ButtonGroup py="24px">
                 <Button
                     colorScheme="yellow"
-                    onClick={getSolution}
-                    disabled={attempts < 2 || !passed}
+                    onClick={!solutionCode && getSolution}
+                    disabled={attempts < 2 || passed || solutionCode || loading}
                     isLoading={loading}
                 >
                     Show solution
@@ -171,16 +207,22 @@ const CodeExercise = ({ code: initCode, attempts: initAttempts, callback, hint }
                 <Button
                     colorScheme="blue"
                     onClick={() => setHintVisible(true)}
-                    disabled={hintVisible || attempts < 1}
+                    disabled={hintVisible || attempts < 1 || loading}
                     isLoading={loading}
                 >
                     Show hint
                 </Button>
-                <Button
-                    colorScheme="green"
-                    onClick={checkSolution}
-                    isLoading={loading}
-                >Check your solution</Button>
+                <Reward
+                    ref={reward}
+                    type="emoji"
+                >
+                    <Button
+                        colorScheme="green"
+                        onClick={checkSolution}
+                        isLoading={loading}
+                        disabled={solutionCode || loading}
+                    >Check your solution</Button>
+                </Reward>
             </ButtonGroup>
         </>
     )
