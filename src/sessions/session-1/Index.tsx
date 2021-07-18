@@ -9,6 +9,7 @@ const Comments = React.lazy(() => import('./Comments'));
 const DataTypes = React.lazy(() => import('./DataTypes'));
 const BuiltinFunctions = React.lazy(() => import('./BuiltinFunctions'));
 const TypeConversion = React.lazy(() => import('./TypeConversion'));
+const AgeCalculatorQuiz = React.lazy(() => import('./AgeCalculatorQuiz'));
 
 const SegmentManager = ({ match: { params }, onTopicUpdate, sessionData }: any) => {
     const { path, url } = useRouteMatch();
@@ -23,7 +24,7 @@ const SegmentManager = ({ match: { params }, onTopicUpdate, sessionData }: any) 
     useEffect(() => onTopicUpdate(params.title, params.topic), [onTopicUpdate, params.title, params.topic]);
     
     const topicNumber = topics.findIndex((topic) => topic === params.topic);
-    if (topicNumber === -1 && params.topic) history.replace(`/session/1/${params.title}/introduction`)// topic not found, default to last topic
+    if (topicNumber === -1 && params.topic) history.replace(`/session/1/${params.title}/introduction`) // topic not found, default to last topic
 
     return (
         <>
@@ -35,6 +36,7 @@ const SegmentManager = ({ match: { params }, onTopicUpdate, sessionData }: any) 
                 <Route exact path={`${path}/data-types`} component={DataTypes}/>
                 <Route exact path={`${path}/builtin-functions`} component={BuiltinFunctions}/>
                 <Route exact path={`${path}/type-conversion`} component={TypeConversion}/>
+                <Route exact path={`${path}/age-calculator-quiz`} component={AgeCalculatorQuiz}/>
             </Switch>
             <ButtonGroup py="68px" display="flex" colorScheme="teal" justifyContent="right" spacing="18" marginTop="32px">
                 <Button 
