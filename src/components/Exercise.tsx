@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, lazy } from 'react';
 import { ButtonGroup, Button } from '@chakra-ui/button';
 import { getToken } from '../contexts/UserContext';
+import Sk from 'skulpt';
 import {
     Alert,
     AlertIcon,
@@ -9,6 +10,18 @@ import {
 } from "@chakra-ui/alert"
 import CodeEditor from './CodeEditor';
 const Reward = lazy(() => import('react-rewards'));
+
+Sk.configure({
+    output: (out) => updatePrints(previous => [...previous, out]),
+    read: (file) => {
+        if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][file] === undefined) {
+            throw new Error("File not found: '" + file + "'");
+        }
+
+        return Sk.builtinFiles["files"][file];
+    },
+    __future__: Sk.python3
+});
 
 interface CallbackValues {
     variables: {
@@ -37,7 +50,7 @@ const CodeExercise = ({ code: initCode, attempts: initAttempts, solutionURL, cal
     const [attempts, setAttempts] = useState(initAttempts || 0)
     const [solutionCode, setSolution] = useState('');
     const [showSolution, setSolutionVisible] = useState(false);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     
     const reward = useRef();
     
@@ -58,40 +71,6 @@ const CodeExercise = ({ code: initCode, attempts: initAttempts, solutionURL, cal
             })
             .finally(() => setLoading(false))
     };
-
-    useEffect(() => {
-        const script = document.createElement('script');
-
-        script.src = "https://skulpt.org/js/skulpt.min.js";
-        script.async = true;
-        
-        // set config
-        script.onload = ({ target }) => {
-            //  SK configuration
-            Sk.configure({
-                output: (out) => updatePrints(previous => [...previous, out]),
-                read: (file) => {
-                    if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][file] === undefined) {
-                        throw new Error("File not found: '" + file + "'");
-                    }
-
-                    return Sk.builtinFiles["files"][file];
-                },
-                __future__: Sk.python3
-            });
-            
-            // load standard library
-            const script = document.createElement('script');
-            script.src = "https://skulpt.org/js/skulpt-stdlib.js";
-            script.async = true;
-            script.onload = () => setLoading(false);
-            document.body.appendChild(script);
-            document.body.removeChild(script);
-        }
-
-        document.body.appendChild(script);
-        document.body.removeChild(script);
-    }, []);
 
     const checkSolution = () => {
         if (!window.Sk) {
