@@ -32,9 +32,11 @@ const SessionManager = ({ match: { params }}) => {
 
         // converting from URL name to NAME (for database)
         const { topics: sessionTopics, name: sessionName } = sessions.find(({ name }) => session === textToURL(name));
-        const { name: topicName } = sessionTopics.find(({ name }) => topic === textToURL(name));
+        const sessionTopic = sessionTopics.find(({ name }) => topic === textToURL(name));
 
-        updateProgress(sessionName, topicName);
+        if (!sessionTopic) return;
+
+        updateProgress(sessionName, sessionTopic.name);
     }, [sessions])
     
     if (!sessions.length) return <Center minHeight="100vh"><Spinner size="xl"/></Center>

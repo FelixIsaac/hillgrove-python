@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, lazy } from 'react';
+import React, { useState, useRef, lazy } from 'react';
 import { ButtonGroup, Button } from '@chakra-ui/button';
 import { getToken } from '../contexts/UserContext';
 import Sk from 'skulpt';
@@ -31,7 +31,7 @@ interface CallbackValues {
     Sk: any;
 }
 
-interface ICodeExercise {
+export interface ICodeExercise {
     code: string[];
     attempts: number;
     hint: string[];
