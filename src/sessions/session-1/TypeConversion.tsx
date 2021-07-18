@@ -4,12 +4,12 @@ import CodeSnippet from '../../components/CodeSnippet';
 import {
     Heading,
     Text,
-    Alert,
-    AlertIcon,
-    AlertTitle,
-    AlertDescription,
     Box,
-    Kbd
+    Kbd,
+    // Alert,
+    // AlertIcon,
+    // AlertTitle,
+    // AlertDescription,
 } from '@chakra-ui/react';
 
 const TypeConversion = () => {
@@ -19,7 +19,7 @@ const TypeConversion = () => {
         <Box as="article" fontSize="18px">
             <Heading as="h1">Type conversion</Heading>
             <Text>
-                You have learnt about the <strong>3</strong> types of data in Python they are:
+                Now {user.firstName}, you have learnt about the <strong>3</strong> types of data in Python they are:
                 <CodeSnippet code={[
                     `10 # numbers`,
                     `True # booleans`,

@@ -1,20 +1,18 @@
 import React from 'react';
-import { css, jsx } from '@emotion/react';
+import { css } from '@emotion/react';
 import {
 	Heading,
 	Text,
 	Kbd,
-	Tooltip,
+	Link,
+	Box,
 	Popover,
 	PopoverTrigger,
 	PopoverContent,
 	PopoverHeader,
 	PopoverBody,
-	PopoverFooter,
 	PopoverArrow,
 	PopoverCloseButton,
-	Link,
-	Box
 } from '@chakra-ui/react';
 import { FiExternalLink } from 'react-icons/fi';
 import CodeExercise, { ICodeExercise } from '../components/Exercise'
