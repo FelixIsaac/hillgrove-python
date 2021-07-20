@@ -15,7 +15,7 @@ export interface ICodeEditor {
 }
 
 const CodeEditor = ({ code: initCode, onChange, solution }: ICodeEditor) => {
-    const [code, setCode] = useState(initCode.join('\n'));
+    const [, setCode] = useState(initCode.join('\n'));
 
     const updateCode = (code: string) => {
         onChange && onChange(code.split('\n'))
@@ -43,7 +43,7 @@ const CodeEditor = ({ code: initCode, onChange, solution }: ICodeEditor) => {
             <p style={{ margin: "36px 0 8px 0" }}>
                 {
                     solution.showSolution ? (
-                        <strong>Solution to code: </strong>
+                        <strong>{solution.solutionCode.join('\n') === initCode.join('\n') ? 'Your s': 'S' }olution to code: </strong>
                     ) : (
                         <>
                             <strong>Code Editor: </strong>
@@ -57,7 +57,7 @@ const CodeEditor = ({ code: initCode, onChange, solution }: ICodeEditor) => {
                     <CodeSnippet code={solution.solutionCode} />
                 ) : (
                     <Editor
-                        value={code}
+                        value={initCode.join('\n')}
                         onValueChange={updateCode}
                         highlight={highlight}
                         padding={10}
