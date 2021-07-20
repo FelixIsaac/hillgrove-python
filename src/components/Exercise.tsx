@@ -72,10 +72,8 @@ const CodeExercise = ({ code: initCode, attempts: initAttempts, solutionURL, cal
                 changeCode(progress.draft_code.split('\n'));
                 setUserSolution(progress.solution_code.split('\n'))
             })
-            .finally(() => {
-                setLoadingWindow(false)
-            });
-    }, [])
+            .finally(() => setLoadingWindow(false));
+    }, [solutionURL])
 
     const draftSolution = () => {
         setLoading(true)
