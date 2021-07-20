@@ -53,12 +53,27 @@ const CodeExercise = ({ code: initCode, attempts: initAttempts, solutionURL, cal
     const [loading, setLoading] = useState(false);
     
     const reward = useRef();
+
+    const draftSolution = () => {
+        setLoading(true)
+
+        fetch(`${process.env.REACT_APP_BACKEND_API}/users/solution/${solutionURL}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': getToken()
+            },
+            body: JSON.stringify({ code: code.join('\n') })
+        })
+            .finally(() => setLoading(false))
+    }
     
     const getSolution = () => {
         setLoading(true);
 
         fetch(`${process.env.REACT_APP_BACKEND_API}/session/solution/${solutionURL}`, {
             headers: {
+                'Content-Type': 'application/json',
                 'Authorization': getToken()
             }
         })
@@ -71,6 +86,17 @@ const CodeExercise = ({ code: initCode, attempts: initAttempts, solutionURL, cal
             })
             .finally(() => setLoading(false))
     };
+
+    const showHint = () => {
+        setHintVisible(true)
+
+        fetch(`${process.env.REACT_APP_BACKEND_API}/session/hint/${solutionURL}`, {
+            headers: {
+                'Content-Type': 'application1/json',
+                'Authorization': getToken()
+            }
+        })
+    }
 
     const checkSolution = () => {
         if (!window.Sk) {
@@ -103,15 +129,13 @@ const CodeExercise = ({ code: initCode, attempts: initAttempts, solutionURL, cal
                     variables[property] = Sk.ffi.remapToJs(Sk.globals[property]);
                 });
 
-            updatePrints(updatedState => {
-                setExecutionStatus("success")
-                setExecutionDisplay(true)
-                setExecutionMessage(`Code is syntactically correct. ${!callback ? "No tests defined for this exercise" : "Running tests..."}`)
-           
-                return updatedState;
-            });
-
-            if (!callback) return setLoading(false);
+            if (!callback) {
+                updatePrints(updatedState => {
+                    setLoading(false);
+                    passedTest(`Code is syntactically correct. ${!callback ? "No tests defined for this exercise" : "Running tests..."}`)          
+                    return updatedState;
+                });
+            }
             
             updatePrints(updatedState => {
                 //  if callback was passed
@@ -124,30 +148,45 @@ const CodeExercise = ({ code: initCode, attempts: initAttempts, solutionURL, cal
     
                 const stats = ` (${passedTests}/${totalTests} passed tests)`;
 
-                if (passed) {
-                    setPassed(true)
-                    setExecutionStatus("success")
-                    setExecutionDisplay(true)
-                    setExecutionMessage(`Your code has passed all test cases: ${stats}`);
-                    setLoading(false)
-                    reward.current.rewardMe();
-                } else {
-                    setExecutionStatus("error")
-                    setExecutionDisplay(true)
-                    setExecutionMessage(`Your code has failed some test cases, don't give up and please try again. ${stats}`);
-                    setLoading(false)
-                    reward.current.punishMe();
-                }
+                if (passed) passedTest(`Your code has passed all test cases: ${stats}`)
+                else failedTest(`Your code has failed some test cases, don't give up and please try again. ${stats}`)
 
                 return updatedState;
             });
-        }, (err) => {
+        }, (err) => failedTest(err));
+
+        function passedTest(message: string) {
+            setPassed(true)
+            setExecutionStatus("success")
+            setExecutionDisplay(true)
+            setExecutionMessage(message);
+            setLoading(false)
+            reward.current.rewardMe();
+            updateDatabase(true);
+        }
+
+        function failedTest(message: string) {
             setExecutionStatus("error")
             setExecutionDisplay(true)
-            setExecutionMessage(err.toString());
+            setExecutionMessage(message.toString());
             setLoading(false)
             reward.current.punishMe();
-        });
+            updateDatabase();
+        }
+
+        function updateDatabase(correct_solution = false) {
+            fetch(`${process.env.REACT_APP_BACKEND_API}/users/solution/${solutionURL}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': getToken()
+                },
+                body: JSON.stringify({
+                    code: code.join('\n'),
+                    correct_solution
+                })
+            })
+        }
     }
 
     return (
@@ -185,11 +224,18 @@ const CodeExercise = ({ code: initCode, attempts: initAttempts, solutionURL, cal
                 </Button>
                 <Button
                     colorScheme="blue"
-                    onClick={() => setHintVisible(true)}
+                    onClick={showHint}
                     disabled={hintVisible || attempts < 1 || loading}
                     isLoading={loading}
                 >
                     Show hint
+                </Button>
+                <Button
+                    onClick={draftSolution}
+                    disabled={loading || solutionCode}
+                    isLoading={loading}
+                >
+                    Draft solution
                 </Button>
                 <Reward
                     ref={reward}
