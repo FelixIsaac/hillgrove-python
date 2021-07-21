@@ -272,14 +272,14 @@ const CodeExercise = ({ code: initCode, attempts: initAttempts, solutionURL, cal
                     </Reward>
                 </ButtonGroup>
                 {
-                    userSolution.length && (
+                    userSolution.length ? (
                         <CodeEditor
                             code={userSolution}
                             solution={{ showSolution: true, solutionCode: userSolution }}
                             onChange={() => { }}
                         />
-                    )
-                    }
+                    ) : null
+                }
             </Skeleton>
         </>
     )
