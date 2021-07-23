@@ -12,7 +12,7 @@ const Comments = () => {
         <Box as="article" fontSize="18px">
             <Heading as="h1">Comments</Heading>
             <VideoPlayer
-                src="https://www.youtube-nocookie.com/embed/DHa9sL-GPBk"
+                src="https://www.youtube.com/embed/DHa9sL-GPBk"
                 title="Hillgrove Python Course: Comments"
             />
             <Text>

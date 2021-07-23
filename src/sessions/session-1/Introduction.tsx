@@ -10,7 +10,7 @@ const Introduction = () => {
         <Box as="article" fontSize="18px">
             <Heading as="h1">Introduction</Heading>
             <VideoPlayer
-                src="https://www.youtube-nocookie.com/embed/HwWyhwUxCX8"
+                src="https://www.youtube.com/embed/HwWyhwUxCX8"
                 title="Hillgrove Python Course: Introduction"
             />
             <Text>

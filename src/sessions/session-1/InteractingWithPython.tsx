@@ -28,7 +28,7 @@ const InteractingWithPython = () => {
         <Box as="article" fontSize="18px">
             <Heading as="h1" id="interacting-with-python">Interacting with Python</Heading>
             <VideoPlayer
-                src="https://www.youtube-nocookie.com/embed/yV5KkiJ6rYk"
+                src="https://www.youtube.com/embed/yV5KkiJ6rYk"
                 title="Hillgrove Python Course: Interacting with Python"
             />
             <Text>

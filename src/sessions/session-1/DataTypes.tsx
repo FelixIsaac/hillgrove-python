@@ -21,7 +21,7 @@ const DataTypes = () => {
         <Box as="article" fontSize="18px">
             <Heading as="h1">Data Types</Heading>
             <VideoPlayer
-                src="https://www.youtube-nocookie.com/embed/ZkLNDbtUhRk"
+                src="https://www.youtube.com/embed/ZkLNDbtUhRk"
                 title="Hillgrove Python Course: Data Types"
             />
             <Text>

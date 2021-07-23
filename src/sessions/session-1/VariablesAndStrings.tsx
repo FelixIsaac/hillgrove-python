@@ -21,7 +21,7 @@ const VariablesAndStrings = () => {
         <Box as="article" fontSize="18px">
             <Heading as="h1" id="interacting-with-python">Variables and Strings</Heading>
             <VideoPlayer
-                src="https://www.youtube-nocookie.com/embed/ZkLNDbtUhRk"
+                src="https://www.youtube.com/embed/ZkLNDbtUhRk"
                 title="Hillgrove Python Course: Data Types"
             />
             <Text>
