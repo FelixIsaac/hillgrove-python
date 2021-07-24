@@ -12,6 +12,7 @@ const SessionManager = React.lazy(() => import('./pages/Session'));
 const Feedback = React.lazy(() => import('./pages/Feedback'));
 const Support = React.lazy(() => import('./pages/Support'));
 const Logout = React.lazy(() => import('./components/Logout'));
+const NotFound = React.lazy(() => import("./pages/NotFound"))
 
 const App = () => (
   <UserContextComponent>
@@ -27,6 +28,7 @@ const App = () => (
               <Route path="/feedback" component={Feedback} />
               <Route exact path="/logout" component={Logout} />
               <Route exact path="/support" component={Support} />
+              <Route path="*" component={NotFound} />
             </Switch>
           </Suspense>
         </main>
