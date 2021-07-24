@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
     Box,
     Flex,
@@ -43,8 +43,9 @@ const Links = () => (
 )
 
 const Header = () => {
-    const user = useContext(UserContext)
+    const user = useContext(UserContext);
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const [xp, setXP] = useState(user.getStoredXP());
     if (!user.name) return null;
 
     return (
@@ -62,7 +63,7 @@ const Header = () => {
                 />
                 <HStack spacing={8} alignItems="center">
                     <Box>
-                        <RouterLink to="/">
+                         <RouterLink to="/">
                             <Text fontSize="2xl" fontWeight="bold">
                                 Hillgrove Python Course
                             </Text>
@@ -83,6 +84,7 @@ const Header = () => {
                             rounded="full"
                             variant="link"
                             cursor="pointer"
+                            onClick={() => setXP(user.getStoredXP())}
                         >
                             <Avatar
                                 size="md"
@@ -92,7 +94,7 @@ const Header = () => {
                             />
                         </MenuButton>
                     <MenuList>
-                        <MenuItem>XP: {user.xp || 100}</MenuItem>
+                        <MenuItem>XP: {xp}</MenuItem>
                         <MenuDivider />
                         <MenuItem as={RouterLink} to="/logout">Logout</MenuItem>
                     </MenuList>

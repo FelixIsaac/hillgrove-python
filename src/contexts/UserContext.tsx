@@ -9,7 +9,7 @@ export function getCookie(name: string): string {
 export const getToken = () => getCookie('token');
 
 function updateUser(jwt?: string) {
-        if (!jwt) jwt = getToken();
+    if (!jwt) jwt = getToken();
     const newUser = parseJWT(jwt);
 
     for (const key of Object.keys(newUser)) {
@@ -17,16 +17,39 @@ function updateUser(jwt?: string) {
     }
 }
 
+function updateXP(xp) {
+    sessionStorage.setItem('xp', xp);
+}
+
+function getXP() {
+    fetch(`${process.env.REACT_APP_BACKEND_API}/users/xp`, {
+        headers: {
+            'Authorization': getToken()
+        }
+    })
+        .then(response => response.json())
+        .then(({ xp }) => updateXP(xp));
+}
+
 export const initUser = {
     avatar: '',
-    exp: 0,
     firstName: '',
     name: '',
-    googleId: '',
-    updateUser
+    googleId: ''
 };
 
-export const UserContext = createContext(initUser);
+interface IUserContext {
+    avatar: string;
+    firstName: string;
+    name: string;
+    googleId: string;
+    xp: number;
+    getStoredXP(): number;
+    updateXP(xp: number): void;
+    updateUser(jwt: string): void;
+}
+
+export const UserContext = createContext(initUser as IUserContext);
 
 export const parseJWT = (token: string | undefined) => {
     if (!token) token = getToken();
@@ -52,9 +75,13 @@ const UserContextComponent = (props: any) => {
         document.cookie = "token=;";
         return props.children;
     }
-
+    
+    // request user xp
+    const getStoredXP = () => parseInt(sessionStorage.getItem('xp') || '0');
+    getXP();
+    
     return (
-      <UserContext.Provider value={{ ...user, updateUser }}>
+      <UserContext.Provider value={{ ...user, getStoredXP, updateXP, updateUser }}>
           {props.children}
       </UserContext.Provider>
     );

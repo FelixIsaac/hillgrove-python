@@ -1,14 +1,10 @@
-import React, { useState, useRef, useEffect, lazy } from 'react';
+import React, { useState, useRef, useEffect, lazy, useContext } from 'react';
 import Sk from 'skulpt';
 import { ButtonGroup, Button, } from '@chakra-ui/button';
-import {
-    Alert,
-    AlertIcon,
-    AlertTitle,
-    AlertDescription,
-} from "@chakra-ui/alert"
+import { Alert, AlertIcon, AlertTitle, AlertDescription } from "@chakra-ui/alert"
 import { Skeleton } from '@chakra-ui/skeleton'
-import { getToken } from '../contexts/UserContext';
+import { useToast } from '@chakra-ui/toast';
+import { UserContext, getToken } from '../contexts/UserContext';
 import CodeEditor from './CodeEditor';
 const Reward = lazy(() => import('react-rewards'));
 
@@ -56,6 +52,8 @@ const CodeExercise = ({ code: initCode, attempts: initAttempts, solutionURL, cal
     const [loadingWindow, setLoadingWindow] = useState(false)
 
     const reward = useRef();
+    const toast = useToast();
+    const user = useContext(UserContext)
 
     // get code draft and solution
     useEffect(() => {
@@ -183,7 +181,23 @@ const CodeExercise = ({ code: initCode, attempts: initAttempts, solutionURL, cal
             setExecutionMessage(message);
             setLoading(false)
             reward.current.rewardMe();
-            updateDatabase(true);
+
+            updateDatabase(true)
+                .then(response => response.json())
+                .then(({ xp }) => {
+                    if (!xp) return;
+
+                    const newXP = user.getStoredXP() + parseInt(xp);
+                    user.updateXP(newXP)
+
+                    toast({
+                        title: "Gained XP!",
+                        description: `You gained ${xp} XP, You now have ${newXP} XP`,
+                        status: "success",
+                        duration: 9000,
+                        isClosable: true,
+                    })
+                });
         }
 
         function failedTest(message: string) {
@@ -196,7 +210,7 @@ const CodeExercise = ({ code: initCode, attempts: initAttempts, solutionURL, cal
         }
 
         function updateDatabase(correct_solution = false) {
-            fetch(`${process.env.REACT_APP_BACKEND_API}/users/solution/${solutionURL}`, {
+            return fetch(`${process.env.REACT_APP_BACKEND_API}/users/solution/${solutionURL}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -209,7 +223,7 @@ const CodeExercise = ({ code: initCode, attempts: initAttempts, solutionURL, cal
             })
         }
     }
-
+    
     return (
         <>
             <Skeleton isLoaded={!loadingWindow}>
@@ -272,7 +286,7 @@ const CodeExercise = ({ code: initCode, attempts: initAttempts, solutionURL, cal
                     </Reward>
                 </ButtonGroup>
                 {
-                    userSolution.length ? (
+                    !!userSolution.join('\n').length ? (
                         <CodeEditor
                             code={userSolution}
                             solution={{ showSolution: true, solutionCode: userSolution }}
