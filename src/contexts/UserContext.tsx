@@ -31,11 +31,18 @@ function getXP() {
         .then(({ xp }) => updateXP(xp));
 }
 
+function getStoredXP() {
+    parseInt(sessionStorage.getItem('xp') || '0');
+}
+
 export const initUser = {
     avatar: '',
     firstName: '',
     name: '',
-    googleId: ''
+    googleId: '',
+    getStoredXP,
+    updateXP,
+    updateUser
 };
 
 interface IUserContext {
@@ -77,7 +84,6 @@ const UserContextComponent = (props: any) => {
     }
     
     // request user xp
-    const getStoredXP = () => parseInt(sessionStorage.getItem('xp') || '0');
     getXP();
     
     return (
