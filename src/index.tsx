@@ -1,7 +1,7 @@
 import React from 'react'
 import { hydrate, render } from 'react-dom'
-import reportWebVitals from "./reportWebVitals"
-import * as serviceWorker from "./serviceWorker"
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import reportWebVitals from './reportWebVitals';
 import { ColorModeScript } from "@chakra-ui/react"
 import App from "./App"
 import "./assets/index.css"
@@ -20,5 +20,18 @@ if (rootElement && rootElement!.hasChildNodes()) {
   render(app, rootElement)
 }
 
-serviceWorker.register()
+serviceWorkerRegistration.register({
+  onUpdate: registration => {
+    console.log('service worker update available', registration);
+    if (registration && registration.waiting) registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+
+    registration.addEventListener('statechange', e => {
+      if (e.target.state === 'activated') window.location.reload();
+    });
+  },
+  onSuccess: registration => {
+    console.info('service worker on success state', registration);
+  }
+});
+
 reportWebVitals()
