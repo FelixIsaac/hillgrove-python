@@ -5,7 +5,9 @@ import VideoPlayer from '../../components/VideoPlayer';
 
 const Introduction = () => {
     const user = useContext(UserContext);
-
+    setTimeout(() => {
+        throw new Error('💥 KABOOM 💥')
+    },  1500)
     return (
         <Box as="article" fontSize="18px">
             <Heading as="h1">Introduction</Heading>
