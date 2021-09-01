@@ -6,6 +6,7 @@ import { updateProgress } from "../utils/Progress";
 import textToURL from '../utils/textToURL';
 const SessionOne = React.lazy(() => import('../sessions/session-1/Index'));
 const SessionTwo = React.lazy(() => import('../sessions/session-2/Index'));
+const SessionThree = React.lazy(() => import('../sessions/session-3/Index'));
 
 const SessionManager = ({ match: { params }}) => {
     const user = useContext(UserContext);
@@ -54,8 +55,11 @@ const SessionManager = ({ match: { params }}) => {
                         path="/session/2/:title/:topic?"
                         render={(props) => <SessionTwo {...props} onTopicUpdate={updateSession} sessionData={sessions[1]} />}
                     />
+                    <Route
+                        path="/session/3/:title/:topic?"
+                        render={(props) => <SessionThree {...props} onTopicUpdate={updateSession} sessionData={sessions[2]} />}
+                    />
                     {/* 
-                    <Route exact path="/session/3/:title/:topic?" component={Session} />
                     <Route exact path="/session/4/:title/:topic?" component={Session} />
                     <Route exact path="/session/5/:title/:topic?" component={Session} />
                     <Route exact path="/session/6/:title/:topic?" component={Session} /> */}
