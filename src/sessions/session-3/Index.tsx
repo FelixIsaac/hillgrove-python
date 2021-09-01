@@ -25,7 +25,7 @@ const SegmentManager = ({ match: { params }, onTopicUpdate, sessionData }: any) 
     useEffect(() => onTopicUpdate(params.title, params.topic), [onTopicUpdate, params.title, params.topic]);
     
     const topicNumber = topics.findIndex((topic) => topic === params.topic);
-    if (topicNumber === -1 && params.topic) history.replace(`/session/2/${params.title}/escape-characters`) // topic not found, default to last topic
+    if (topicNumber === -1 && params.topic) history.replace(`/session/3/${params.title}/escape-characters`) // topic not found, default to last topic
 
     return (
         <>

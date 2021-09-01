@@ -8,18 +8,6 @@ import { UserContext, getToken } from '../contexts/UserContext';
 import CodeEditor from './CodeEditor';
 const Reward = lazy(() => import('react-rewards'));
 
-Sk.configure({
-    output: (out) => updatePrints(previous => [...previous, out]),
-    read: (file) => {
-        if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][file] === undefined) {
-            throw new Error("File not found: '" + file + "'");
-        }
-
-        return Sk.builtinFiles["files"][file];
-    },
-    __future__: Sk.python3
-});
-
 interface CallbackValues {
     variables: {
         [key: string]: any
@@ -54,6 +42,18 @@ const CodeExercise = ({ code: initCode, attempts: initAttempts, solutionURL, cal
     const reward = useRef();
     const toast = useToast();
     const user = useContext(UserContext)
+
+    Sk.configure({
+        output: (out) => updatePrints(previous => [...previous, out]),
+        read: (file) => {
+            if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][file] === undefined) {
+                throw new Error("File not found: '" + file + "'");
+            }
+
+            return Sk.builtinFiles["files"][file];
+        },
+        __future__: Sk.python3
+    });
 
     // get code draft and solution
     useEffect(() => {
@@ -154,24 +154,25 @@ const CodeExercise = ({ code: initCode, attempts: initAttempts, solutionURL, cal
                     passedTest(`Code is syntactically correct. ${!callback ? "No tests defined for this exercise" : "Running tests..."}`)          
                     return updatedState;
                 });
+            } else {
+                updatePrints(updatedState => {
+                    //  if callback was passed
+                    const { passed, totalTests, passedTests } = callback({
+                        variables,
+                        prints,
+                        mod,
+                        Sk
+                    }) || { passed: 0, totalTests: 0, passedTests: 0 };
+        
+                    const stats = ` (${passedTests}/${totalTests} passed tests)`;
+
+                    if (passed) passedTest(`Your code has passed all test cases: ${stats}`)
+                    else failedTest(`Your code has failed some test cases, don't give up and please try again. ${stats}`)
+
+                    return updatedState;
+                });
             }
             
-            updatePrints(updatedState => {
-                //  if callback was passed
-                const { passed, totalTests, passedTests } = callback({
-                    variables,
-                    prints,
-                    mod,
-                    Sk
-                });
-    
-                const stats = ` (${passedTests}/${totalTests} passed tests)`;
-
-                if (passed) passedTest(`Your code has passed all test cases: ${stats}`)
-                else failedTest(`Your code has failed some test cases, don't give up and please try again. ${stats}`)
-
-                return updatedState;
-            });
         }, (err) => failedTest(err));
 
         function passedTest(message: string) {
