@@ -1,3 +1,8 @@
+> [!NOTE]
+> **📦 Archived — no longer maintained.**
+> A React frontend for a Python course site aimed at Sec 3 students at Hillgrove Secondary — built in mid-2021, got as far as a homepage with Google OAuth, and never went further. The school context it was built for is long gone.
+> _Archived — kept as a record._
+
 This project was bootstrapped with
 [Create React App](https://github.com/facebook/create-react-app).
 
